@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyListTile extends StatelessWidget {
-  MyListTile({super.key, required this.title, required this.icon});
+  const MyListTile(
+      {super.key, required this.title, required this.icon, required this.page});
+
   final String title;
   final IconData icon;
+  final Widget page;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(title),
-      ),
+    return ListTile(
+      onTap: () => Get.to(page),
+      leading: Icon(icon),
+      title: Text(title),
     );
   }
 }

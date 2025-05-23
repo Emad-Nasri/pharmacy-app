@@ -13,8 +13,11 @@ class MyListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () => Get.to(page),
-      leading: Icon(icon),
-      title: Text(title),
+      leading: Icon(
+        icon,
+        color: Colors.white,
+      ),
+      title: Text(title, style: const TextStyle(color: Colors.white)),
     );
   }
 }

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
-import 'package:pharmacy_app/components/my_list_tile.dart';
-import 'package:pharmacy_app/pages/home_page.dart';
-import 'package:pharmacy_app/pages/login.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

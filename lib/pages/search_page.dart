@@ -23,25 +23,26 @@ class _SearchPageState extends State<SearchPage> {
 
   List<String> filteredItems = [];
 
-  @override
-  void initState() {
-    super.initState();
-    filteredItems = allItems;
-  }
-
   void filterSearch(String query) {
-    final results = allItems
-        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    if (query.isEmpty) {
+      setState(() {
+        filteredItems = [];
+      });
+    } else {
+      final results = allItems
+          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+          .toList();
 
-    setState(() {
-      filteredItems = results;
-    });
+      setState(() {
+        filteredItems = results;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       drawer: const Drawer(
         backgroundColor: Color(0xff107163),
         child: MyDrawer(),
@@ -64,6 +65,8 @@ class _SearchPageState extends State<SearchPage> {
               onChanged: filterSearch,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search, color: Color(0xff107163)),
+                label: const Text('Search',
+                    style: TextStyle(color: Color(0xff107163))),
                 hintText: 'Search for a medicine...',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -74,47 +77,62 @@ class _SearchPageState extends State<SearchPage> {
 
             // results grid
             Expanded(
-              child: filteredItems.isNotEmpty
-                  ? GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // 2 أعمدة
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 3 / 2,
-                      ),
-                      itemCount: filteredItems.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            // يمكنك إضافة التنقل إلى تفاصيل المنتج هنا
-                          },
-                          child: Card(
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.medication_outlined,
-                                    size: 40, color: Color(0xff107163)),
-                                const SizedBox(height: 10),
-                                Text(
-                                  filteredItems[index],
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
+              child: searchController.text.isNotEmpty
+                  ? filteredItems.isNotEmpty
+                      ? GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 3 / 2,
                           ),
-                        );
-                      },
-                    )
-                  : const Center(
-                      child: Text('No results found.'),
-                    ),
+                          itemCount: filteredItems.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                print('Tapped on ${filteredItems[index]}');
+                              },
+                              child: Card(
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.medication_outlined,
+                                        size: 40, color: Color(0xff107163)),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      filteredItems[index],
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : Center(
+                          child: Column(
+                          children: [
+                            Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                image: const DecorationImage(
+                                  image: AssetImage('assets/images/sad.png'),
+                                ),
+                              ),
+                            ),
+                            const Text('No results found.'),
+                          ],
+                        ))
+                  : const SizedBox(),
             ),
           ],
         ),

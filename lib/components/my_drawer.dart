@@ -22,11 +22,6 @@ class MyDrawer extends StatelessWidget {
           page: SearchPage(),
         ),
         MyListTile(
-          title: 'Categories',
-          icon: Icons.category_outlined,
-          page: LoginPage(), //Category_page(),
-        ),
-        MyListTile(
           title: 'Logout',
           icon: Icons.logout,
           page: LoginPage(),

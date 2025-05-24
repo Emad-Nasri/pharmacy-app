@@ -12,7 +12,7 @@ class MyListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => Get.to(page),
+      onTap: () => Get.off(page),
       leading: Icon(
         icon,
         color: Colors.white,

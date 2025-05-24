@@ -29,7 +29,8 @@ class MyCategory extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               catName,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Color(0xff107163), fontWeight: FontWeight.bold),
             ),
           ],
         ),

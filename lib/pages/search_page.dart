@@ -41,18 +41,26 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final appBarColor =
+        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
+    final textColor = isDarkMode ? Colors.yellow : Colors.white;
+    final iconColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
+    final searchColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
+    final menuColor = isDarkMode ? Colors.yellow : Colors.white;
+
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: isDarkMode ? Colors.grey[900] : Colors.grey[300],
       drawer: const Drawer(
         backgroundColor: Color(0xff107163),
         child: MyDrawer(),
       ),
       appBar: AppBar(
-        backgroundColor: const Color(0xff107163),
-        iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text(
+        backgroundColor: appBarColor,
+        iconTheme: IconThemeData(color: menuColor),
+        title: Text(
           'Search',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: textColor),
         ),
       ),
       body: Padding(
@@ -64,15 +72,31 @@ class _SearchPageState extends State<SearchPage> {
               controller: searchController,
               onChanged: filterSearch,
               decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search, color: Color(0xff107163)),
-                label: const Text('Search',
-                    style: TextStyle(color: Color(0xff107163))),
+                prefixIcon: Icon(Icons.search, color: iconColor),
+                label: Text('Search', style: TextStyle(color: searchColor)),
                 hintText: 'Search for a medicine...',
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: isDarkMode ? Colors.yellow : const Color(0xff107163),
+                    width: 2,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: isDarkMode ? Colors.yellow : const Color(0xff107163),
+                    width: 2,
+                  ),
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
+                fillColor: isDarkMode ? Colors.grey[850] : Colors.white,
+                filled: true,
               ),
             ),
+
             const SizedBox(height: 20),
 
             // results grid
@@ -94,6 +118,9 @@ class _SearchPageState extends State<SearchPage> {
                                 print('Tapped on ${filteredItems[index]}');
                               },
                               child: Card(
+                                color: isDarkMode
+                                    ? Colors.grey[800]
+                                    : Colors.white,
                                 elevation: 3,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -106,8 +133,11 @@ class _SearchPageState extends State<SearchPage> {
                                     const SizedBox(height: 10),
                                     Text(
                                       filteredItems[index],
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        color: isDarkMode
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                   ],
@@ -129,7 +159,11 @@ class _SearchPageState extends State<SearchPage> {
                                 ),
                               ),
                             ),
-                            const Text('No results found.'),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'No results found.',
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ],
                         ))
                   : const SizedBox(),

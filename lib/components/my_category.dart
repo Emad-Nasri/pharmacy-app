@@ -10,27 +10,38 @@ class MyCategory extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
+        height: 140,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: Colors.black,
             width: 1,
           ),
           color: Colors.white,
         ),
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/images/$image',
-              height: 50,
+            Expanded(
+              flex: 3,
+              child: Image.asset(
+                'assets/images/$image',
+                fit: BoxFit.contain,
+              ),
             ),
-            const SizedBox(height: 10),
-            Text(
-              catName,
-              style: const TextStyle(
-                  color: Color(0xff107163), fontWeight: FontWeight.bold),
+            const SizedBox(height: 8),
+            Expanded(
+              flex: 1,
+              child: Text(
+                catName,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color(0xff107163),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),

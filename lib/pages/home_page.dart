@@ -12,7 +12,6 @@ class HomePage extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final isDarkMode = themeProvider.themeData.brightness == Brightness.dark;
 
-    // تحديد الألوان حسب الوضع
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
     final iconColor = isDarkMode ? Colors.yellow : Colors.white;
@@ -51,39 +50,41 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
+        child: Column(
           children: [
-            Text(
-              'Categories',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).textTheme.bodyLarge?.color,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Categories',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                ),
               ),
             ),
             const SizedBox(height: 16),
-            SizedBox(
-              height: 1000,
-              child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 3 / 2,
-                children: const [
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                  MyCategory(catName: 'Headache', image: 'logo.png'),
-                ],
-              ),
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 3,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              childAspectRatio: 3 / 3.5,
+              children: const [
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+                MyCategory(catName: 'Headache', image: 'logo.png'),
+              ],
             ),
           ],
         ),

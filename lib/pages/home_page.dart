@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pharmacy_app/components/my_category.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
-import 'package:pharmacy_app/theme/theme_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:pharmacy_app/components/theme_controller.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    final isDarkMode = themeProvider.themeData.brightness == Brightness.dark;
+    final ThemeController themeController = Get.find();
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
               Switch(
                 value: isDarkMode,
                 onChanged: (value) {
-                  themeProvider.toggleTheme();
+                  themeController.toggleTheme();
                 },
                 activeColor: iconColor,
                 activeTrackColor: Colors.grey.shade600,
@@ -74,7 +74,6 @@ class HomePage extends StatelessWidget {
               crossAxisSpacing: 10,
               childAspectRatio: 3 / 3.5,
               children: const [
-                MyCategory(catName: 'Headache', image: 'logo.png'),
                 MyCategory(catName: 'Headache', image: 'logo.png'),
                 MyCategory(catName: 'Headache', image: 'logo.png'),
                 MyCategory(catName: 'Headache', image: 'logo.png'),

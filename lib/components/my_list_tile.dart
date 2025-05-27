@@ -11,13 +11,15 @@ class MyListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return ListTile(
       onTap: () => Get.off(page),
       leading: Icon(
         icon,
-        color: Colors.white,
+        color: isDarkMode ? Colors.yellow : Colors.white,
       ),
-      title: Text(title, style: const TextStyle(color: Colors.white)),
+      title: Text(title,
+          style: TextStyle(color: isDarkMode ? Colors.yellow : Colors.white)),
     );
   }
 }

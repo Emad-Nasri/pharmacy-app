@@ -19,10 +19,10 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      drawer: const Drawer(
+      drawer: Drawer(
         width: 200,
-        backgroundColor: Color(0xff107163),
-        child: MyDrawer(),
+        backgroundColor: isDarkMode ? Colors.grey.shade900 : Color(0xff107163),
+        child: const MyDrawer(),
       ),
       appBar: AppBar(
         backgroundColor: appBarColor,

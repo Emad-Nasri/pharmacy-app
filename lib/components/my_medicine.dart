@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:pharmacy_app/pages/category_page.dart';
 
-class MyCategory extends StatelessWidget {
-  const MyCategory({super.key, required this.catName, required this.image});
-  final String catName;
+class MyMedicine extends StatelessWidget {
+  const MyMedicine(
+      {super.key,
+      required this.image,
+      required this.medName,
+      required this.price});
   final String image;
-
+  final String medName;
+  final double price;
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
-      onTap: () {
-        Get.to(() => CategoryPage(
-              catName: catName,
-            ));
-      },
+      onTap: () {},
       child: Container(
         height: 140,
         decoration: BoxDecoration(
@@ -41,14 +38,27 @@ class MyCategory extends StatelessWidget {
             const SizedBox(height: 8),
             Expanded(
               flex: 1,
-              child: Text(
-                catName,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: isDarkMode ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Column(
+                children: [
+                  Text(
+                    medName,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: isDarkMode ? Colors.white : Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '$price \$',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: isDarkMode ? Colors.white : Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

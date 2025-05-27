@@ -22,7 +22,7 @@ class MyCategory extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isDarkMode ? Colors.white : Colors.black,
+            color: isDarkMode ? Colors.yellow : Colors.black,
             width: 1,
           ),
           color: isDarkMode ? Colors.grey.shade800 : Colors.white,
@@ -46,7 +46,7 @@ class MyCategory extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
-                  color: isDarkMode ? Colors.white : Colors.black,
+                  color: isDarkMode ? Colors.yellow : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),

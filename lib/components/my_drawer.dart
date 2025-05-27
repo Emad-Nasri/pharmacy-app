@@ -9,24 +9,29 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const [
-        MyListTile(
-          title: 'Home',
-          icon: Icons.home_outlined,
-          page: HomePage(),
-        ),
-        MyListTile(
-          title: 'Search',
-          icon: Icons.search,
-          page: SearchPage(),
-        ),
-        MyListTile(
-          title: 'Logout',
-          icon: Icons.logout,
-          page: LoginPage(),
-        ),
-      ],
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return Container(
+      color: isDarkMode ? Colors.grey.shade900 : const Color(0xff107163),
+      child: ListView(
+        children: const [
+          MyListTile(
+            title: 'Home',
+            icon: Icons.home_outlined,
+            page: HomePage(),
+          ),
+          MyListTile(
+            title: 'Search',
+            icon: Icons.search,
+            page: SearchPage(),
+          ),
+          MyListTile(
+            title: 'Logout',
+            icon: Icons.logout,
+            page: LoginPage(),
+          ),
+        ],
+      ),
     );
   }
 }

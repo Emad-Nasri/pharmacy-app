@@ -78,7 +78,10 @@ class _LoginPageState extends State<LoginPage> {
 
                     const Padding(
                       padding: EdgeInsets.only(right: 200, bottom: 12),
-                      child: Text('Enter your username'),
+                      child: Text(
+                        'Enter your username',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
 
                     //username text field
@@ -93,7 +96,10 @@ class _LoginPageState extends State<LoginPage> {
 
                     const Padding(
                       padding: EdgeInsets.only(right: 200, bottom: 12),
-                      child: Text('Enter your password'),
+                      child: Text(
+                        'Enter your password',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
 
                     //password text field

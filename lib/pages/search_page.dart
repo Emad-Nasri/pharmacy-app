@@ -51,10 +51,8 @@ class _SearchPageState extends State<SearchPage> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      drawer: Drawer(
-        backgroundColor:
-            isDarkMode ? Colors.grey.shade900 : const Color(0xff107163),
-        child: const MyDrawer(),
+      drawer: const Drawer(
+        child: MyDrawer(),
       ),
       appBar: AppBar(
         backgroundColor: appBarColor,

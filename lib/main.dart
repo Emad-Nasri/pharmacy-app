@@ -1,35 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pharmacy_app/components/theme_controller.dart';
 import 'package:pharmacy_app/pages/splash_screen.dart';
+import 'package:pharmacy_app/theme/theme_controller.dart';
 
 void main() async {
   await GetStorage.init();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ThemeController themeController = Get.put(ThemeController());
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = Get.put(ThemeController());
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      title: 'Pharmacy App',
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       themeMode: themeController.theme,
-      theme: ThemeData.light().copyWith(
-        colorScheme: ColorScheme.light(
-          background: Colors.grey[300]!,
-        ),
-      ),
-      darkTheme: ThemeData.dark().copyWith(
-        colorScheme: const ColorScheme.dark(
-          background: Color(0xFF121212),
-        ),
-      ),
+      home: const SplashScreen(),
     );
   }
 }

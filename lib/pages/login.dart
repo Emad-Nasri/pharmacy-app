@@ -3,6 +3,7 @@ import 'package:pharmacy_app/components/my_button.dart';
 import 'package:pharmacy_app/components/my_text_field.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/pages/home_page.dart';
+import 'package:pharmacy_app/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -21,7 +22,11 @@ class _LoginPageState extends State<LoginPage> {
   void singUserIn() {
     // login logic
     if (_formKey.currentState!.validate()) {
-      print('Tapped');
+      /*Map<String, dynamic> data = {
+        'userName': usernameController.text,
+        'password': passwordController.text,
+      };*/
+      //AuthService.login(data);
       Get.off(const HomePage());
     }
     // إذا لم تكن الحقول صالحة، لن يتم تنفيذ شيء
@@ -73,7 +78,10 @@ class _LoginPageState extends State<LoginPage> {
 
                     const Padding(
                       padding: EdgeInsets.only(right: 200, bottom: 12),
-                      child: Text('Enter your username'),
+                      child: Text(
+                        'Enter your username',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
 
                     //username text field
@@ -88,7 +96,10 @@ class _LoginPageState extends State<LoginPage> {
 
                     const Padding(
                       padding: EdgeInsets.only(right: 200, bottom: 12),
-                      child: Text('Enter your password'),
+                      child: Text(
+                        'Enter your password',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
 
                     //password text field

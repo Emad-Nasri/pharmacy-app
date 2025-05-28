@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:pharmacy_app/pages/details_page.dart';
 
 class MyMedicine extends StatelessWidget {
   const MyMedicine(
       {super.key,
       required this.image,
       required this.medName,
-      required this.price});
+      required this.price,
+      required this.description,
+      required this.useage});
   final String image;
   final String medName;
+  final String description;
+  final String useage;
   final double price;
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => DetailsPage(
+              productName: medName,
+              description: description,
+              price: 25,
+              useage: useage,
+            ));
+      },
       child: Container(
         height: 140,
         decoration: BoxDecoration(

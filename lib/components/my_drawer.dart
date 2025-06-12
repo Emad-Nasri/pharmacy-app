@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/components/my_list_tile.dart';
 import 'package:pharmacy_app/pages/home_page.dart';
 import 'package:pharmacy_app/pages/login.dart';
+import 'package:pharmacy_app/pages/notification_page.dart';
 import 'package:pharmacy_app/pages/search_page.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -24,6 +25,11 @@ class MyDrawer extends StatelessWidget {
             title: 'Search',
             icon: Icons.search,
             page: SearchPage(),
+          ),
+          MyListTile(
+            title: 'Notifications',
+            icon: Icons.notifications_none_outlined,
+            page: NotificationPage(),
           ),
           MyListTile(
             title: 'Logout',

@@ -52,6 +52,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       drawer: const Drawer(
+        width: 200,
         child: MyDrawer(),
       ),
       appBar: AppBar(

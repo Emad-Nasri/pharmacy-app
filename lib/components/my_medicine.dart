@@ -10,12 +10,14 @@ class MyMedicine extends StatelessWidget {
       required this.medName,
       required this.price,
       required this.description,
-      required this.useage});
+      required this.useage,
+      required this.quantity});
   final String image;
   final String medName;
   final String description;
   final String useage;
   final double price;
+  final int quantity;
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -24,8 +26,9 @@ class MyMedicine extends StatelessWidget {
         Get.to(() => DetailsPage(
               productName: medName,
               description: description,
-              price: 25,
+              price: price,
               useage: useage,
+              quantity: quantity,
             ));
       },
       child: Container(

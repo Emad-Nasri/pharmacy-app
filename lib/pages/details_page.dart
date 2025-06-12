@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmacy_app/models/date.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -9,15 +10,17 @@ class DetailsPage extends StatelessWidget {
     required this.description,
     required this.price,
     required this.useage,
+    required this.quantity,
   });
 
   final String productName;
   final String description;
   final String useage;
   final double price;
-
+  final int? quantity;
   @override
   Widget build(BuildContext context) {
+    Date date = Date(date: '', day: '', month: '', year: '');
     final ThemeController themeController = Get.find();
     final isDarkMode = themeController.theme == ThemeMode.dark;
 
@@ -114,7 +117,7 @@ class DetailsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Product name: $productName',
+                          'Product name : $productName',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -123,10 +126,33 @@ class DetailsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Price: $price \$',
+                          'Price : $price \$',
                           style: TextStyle(
                             fontSize: 16,
-                            color: isDarkMode ? Colors.white70 : Colors.black87,
+                            color: isDarkMode ? Colors.white : Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Manufacturing date : ${date.day = '10'}-${date.month = '10'}-${date.year = '2024'}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: isDarkMode ? Colors.white : Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'ُExpiration date : ${date.day = '9'}-${date.month = '10'}-${date.year = '2025'}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: isDarkMode ? Colors.white : Colors.black87,
+                          ),
+                        ),
+                        Text(
+                          'ُQuantity : $quantity',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: isDarkMode ? Colors.white : Colors.black87,
                           ),
                         ),
                       ],

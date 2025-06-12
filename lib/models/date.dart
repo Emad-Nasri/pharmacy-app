@@ -1,8 +1,8 @@
 class Date {
   String date;
-  String day;
-  String month;
-  String year;
+  int day;
+  int month;
+  int year;
   Date(
       {required this.date,
       required this.day,

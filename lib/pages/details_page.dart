@@ -11,6 +11,12 @@ class DetailsPage extends StatelessWidget {
     required this.price,
     required this.useage,
     required this.quantity,
+    required this.endD,
+    required this.endM,
+    required this.endY,
+    required this.startD,
+    required this.startM,
+    required this.startY,
   });
 
   final String productName;
@@ -18,9 +24,15 @@ class DetailsPage extends StatelessWidget {
   final String useage;
   final double price;
   final int? quantity;
+  final int startD;
+  final int startM;
+  final int startY;
+  final int endD;
+  final int endM;
+  final int endY;
   @override
   Widget build(BuildContext context) {
-    Date date = Date(date: '', day: '', month: '', year: '');
+    Date date = Date(date: '', day: 0, month: 0, year: 0);
     final ThemeController themeController = Get.find();
     final isDarkMode = themeController.theme == ThemeMode.dark;
 
@@ -134,7 +146,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Manufacturing date : ${date.day = '10'}-${date.month = '10'}-${date.year = '2024'}',
+                          'Manufacturing date : ${date.day = startD}-${date.month = startM}-${date.year = startY}',
                           style: TextStyle(
                             fontSize: 16,
                             color: isDarkMode ? Colors.white : Colors.black87,
@@ -142,12 +154,13 @@ class DetailsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'ُExpiration date : ${date.day = '9'}-${date.month = '10'}-${date.year = '2025'}',
+                          'ُExpiration date : ${date.day = endD}-${date.month = endM}-${date.year = endY}',
                           style: TextStyle(
                             fontSize: 16,
                             color: isDarkMode ? Colors.white : Colors.black87,
                           ),
                         ),
+                        const SizedBox(height: 10),
                         Text(
                           'ُQuantity : $quantity',
                           style: TextStyle(

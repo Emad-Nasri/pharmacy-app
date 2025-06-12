@@ -11,13 +11,26 @@ class MyMedicine extends StatelessWidget {
       required this.price,
       required this.description,
       required this.useage,
-      required this.quantity});
+      required this.quantity,
+      required this.startD,
+      required this.startM,
+      required this.startY,
+      required this.endD,
+      required this.endM,
+      required this.endY});
   final String image;
   final String medName;
   final String description;
   final String useage;
   final double price;
   final int quantity;
+  final int startD;
+  final int startM;
+  final int startY;
+  final int endD;
+  final int endM;
+  final int endY;
+
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -29,6 +42,12 @@ class MyMedicine extends StatelessWidget {
               price: price,
               useage: useage,
               quantity: quantity,
+              day: startD,
+              month: startM,
+              year: startY,
+              endD: endD,
+              endM: endM,
+              endY: endY,
             ));
       },
       child: Container(

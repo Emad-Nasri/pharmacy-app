@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/components/my_category.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
+import 'package:pharmacy_app/pages/notification_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
 class HomePage extends StatelessWidget {
@@ -33,6 +34,13 @@ class HomePage extends StatelessWidget {
         actions: [
           Row(
             children: [
+              IconButton(
+                icon: Icon(
+                  Icons.notifications,
+                  color: iconColor,
+                ),
+                onPressed: () => Get.to(const NotificationPage()),
+              ),
               Icon(Icons.wb_sunny, color: iconColor),
               Switch(
                 value: isDarkMode,

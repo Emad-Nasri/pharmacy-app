@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/models/date.dart';
+import 'package:pharmacy_app/pages/invoice_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -55,6 +56,17 @@ class DetailsPage extends StatelessWidget {
             'Details',
             style: TextStyle(color: appBarTextColor),
           ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.date_range,
+                color: iconColor,
+              ),
+              onPressed: () {
+                Get.off(const InvoicePage());
+              },
+            ),
+          ],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

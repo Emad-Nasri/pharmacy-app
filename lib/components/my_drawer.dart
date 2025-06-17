@@ -16,18 +16,18 @@ class MyDrawer extends StatelessWidget {
     return Container(
       color: isDarkMode ? Colors.grey.shade900 : const Color(0xff107163),
       child: ListView(
-        children: [
-          const MyListTile(
+        children: const [
+          MyListTile(
             title: 'Home',
             icon: Icons.home_outlined,
             page: HomePage(),
           ),
-          const MyListTile(
+          MyListTile(
             title: 'Search',
             icon: Icons.search,
             page: SearchPage(),
           ),
-          const MyListTile(
+          MyListTile(
             title: 'Notifications',
             icon: Icons.notifications_none_outlined,
             page: NotificationPage(),
@@ -37,7 +37,7 @@ class MyDrawer extends StatelessWidget {
             icon: Icons.date_range,
             page: InvoicePage(),
           ),
-          const MyListTile(
+          MyListTile(
             title: 'Logout',
             icon: Icons.logout,
             page: LoginPage(),

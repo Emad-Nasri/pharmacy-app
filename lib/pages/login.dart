@@ -3,6 +3,7 @@ import 'package:pharmacy_app/components/my_button.dart';
 import 'package:pharmacy_app/components/my_text_field.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/pages/home_page.dart';
+import 'package:pharmacy_app/pages/register.dart';
 import 'package:pharmacy_app/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -115,8 +116,35 @@ class _LoginPageState extends State<LoginPage> {
 
                     const SizedBox(height: 25),
 
-                    MyButton(onTap: singUserIn),
+                    MyButton(
+                      onTap: singUserIn,
+                      text: 'Sign In',
+                    ),
 
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Text(
+                            'Not a member?',
+                            style: TextStyle(color: Colors.grey[700]),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => Get.off(const Register()),
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 4),
+                            child: const Text(
+                              'Register now',
+                              style: TextStyle(
+                                  color: Color(0xff107163),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 50),
                   ],
                 ),

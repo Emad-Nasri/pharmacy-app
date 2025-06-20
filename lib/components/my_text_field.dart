@@ -8,6 +8,7 @@ class MyTextField extends StatelessWidget {
   final bool obscureText;
   final VoidCallback? toggleVisibility;
   final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
 
   const MyTextField({
     super.key,
@@ -17,6 +18,7 @@ class MyTextField extends StatelessWidget {
     required this.obscureText,
     this.toggleVisibility,
     this.inputFormatters,
+    this.keyboardType,
   });
 
   @override
@@ -27,59 +29,55 @@ class MyTextField extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-      child: SizedBox(
-        //width: double.infinity,
-        child: TextFormField(
-            controller: controller,
-            obscureText: obscureText,
-            cursorColor: const Color(0xff107163),
-            style: const TextStyle(color: Color(0xff107163)),
-            inputFormatters: inputFormatters,
-            decoration: InputDecoration(
-              label: Text(lableText),
-              labelStyle: const TextStyle(color: Color(0xff107163)),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              fillColor: Colors.grey.shade200,
-              filled: true,
-              hintText: hintText,
-              hintStyle: const TextStyle(color: Color(0xff107163)),
-              suffixIcon: isPassword || isConfirmPassword
-                  ? IconButton(
-                      icon: Icon(
-                        obscureText ? Icons.visibility_off : Icons.visibility,
-                        color: const Color(0xff107163),
-                      ),
-                      onPressed: toggleVisibility,
-                    )
-                  : null,
-            ),
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return 'Please enter a $lableText.';
-              }
-
-              if (lableText.toLowerCase() == 'age') {
-                if (!RegExp(r'^[0-9/]+$').hasMatch(value.trim())) {
-                  return 'Age must contain only numbers and slashes.';
-                }
-              }
-
-              if (isPassword && value.length < 8) {
-                return 'Password must be at least 8 characters long.';
-              }
-              if (lableText.toLowerCase() == 'mobile number') {
-                if (!RegExp(r'^\d{10,15}$').hasMatch(value.trim())) {
-                  return 'Enter a valid mobile number';
-                }
-              }
-
-              return null;
-            }),
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
+        cursorColor: const Color(0xff107163),
+        style: const TextStyle(color: Color(0xff107163)),
+        decoration: InputDecoration(
+          label: Text(lableText),
+          labelStyle: const TextStyle(color: Color(0xff107163)),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          fillColor: Colors.grey.shade200,
+          filled: true,
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Color(0xff107163)),
+          suffixIcon: isPassword || isConfirmPassword
+              ? IconButton(
+                  icon: Icon(
+                    obscureText ? Icons.visibility_off : Icons.visibility,
+                    color: const Color(0xff107163),
+                  ),
+                  onPressed: toggleVisibility,
+                )
+              : null,
+        ),
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'Please enter a $lableText.';
+          }
+          if (lableText.toLowerCase() == 'age') {
+            if (!RegExp(r'^[0-9/]+$').hasMatch(value.trim())) {
+              return 'Age must contain only numbers and slashes.';
+            }
+          }
+          if (lableText.toLowerCase() == 'phone number') {
+            if (!RegExp(r'^\+963[0-9]{7,}$').hasMatch(value.trim())) {
+              return 'Phone number must start with +963 and contain at least 7 digits after.';
+            }
+          }
+          if (isPassword && value.length < 8) {
+            return 'Password must be at least 8 characters long.';
+          }
+          return null;
+        },
       ),
     );
   }

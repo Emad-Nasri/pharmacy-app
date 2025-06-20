@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 import 'package:pharmacy_app/components/my_button.dart';
 import 'package:pharmacy_app/components/my_text_field.dart';
-import 'package:get/get.dart';
 import 'package:pharmacy_app/pages/home_page.dart';
 import 'package:pharmacy_app/pages/login.dart';
-import 'package:pharmacy_app/services/auth_service.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -15,38 +17,78 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final phoneController = TextEditingController();
   final usernameController = TextEditingController();
   final fullNameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final ageController = TextEditingController();
+  final phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   bool showPassword = true;
+  bool showConfirmPassword = true;
 
-  void singUserUp() {
+  void togglePasswordVisibility() {
+    setState(() {
+      showPassword = !showPassword;
+    });
+  }
+
+  void toggleConfirmPasswordVisibility() {
+    setState(() {
+      showConfirmPassword = !showConfirmPassword;
+    });
+  }
+
+  Future<void> registerUser(Map<String, String> userData) async {
+    final url =
+        Uri.parse('https://your-backend-api.com/register'); // عدل الرابط هنا
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(userData),
+    );
+
+    if (response.statusCode == 200) {
+      // تسجيل ناجح، اذهب للصفحة الرئيسية
+      Get.off(const HomePage());
+    } else {
+      final errorMsg =
+          jsonDecode(response.body)['message'] ?? 'Registration failed';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMsg), backgroundColor: Colors.red),
+      );
+    }
+  }
+
+  void singUserUp() async {
     if (_formKey.currentState!.validate()) {
       if (passwordController.text != confirmPasswordController.text) {
-        // كلمة السر وتأكيدها لا تتطابق
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Passwords do not match'),
             backgroundColor: Colors.red,
           ),
         );
-        return; // إيقاف المتابعة
+        return;
       }
 
-      // إذا تطابقت كلمة السر مع تأكيدها، انتقل إلى الصفحة الرئيسية
-      Get.off(const HomePage());
-    }
-  }
+      final userData = {
+        "fullName": fullNameController.text.trim(),
+        "username": usernameController.text.trim(),
+        "phone": phoneController.text.trim(),
+        "password": passwordController.text.trim(),
+        "age": ageController.text.trim(),
+      };
 
-  void togglePasswordVisibility() {
-    setState(() {
-      showPassword = !showPassword;
-    });
+      try {
+        await registerUser(userData);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+        );
+      }
+    }
   }
 
   @override
@@ -61,7 +103,6 @@ class _RegisterState extends State<Register> {
             child: Form(
               key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
                   Container(
@@ -80,6 +121,8 @@ class _RegisterState extends State<Register> {
                     style: TextStyle(color: Colors.grey[700], fontSize: 16),
                   ),
                   const SizedBox(height: 25),
+
+                  // Full Name
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
@@ -94,6 +137,8 @@ class _RegisterState extends State<Register> {
                     obscureText: false,
                   ),
                   const SizedBox(height: 10),
+
+                  // Username
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
@@ -108,6 +153,28 @@ class _RegisterState extends State<Register> {
                     obscureText: false,
                   ),
                   const SizedBox(height: 10),
+
+                  // Phone number
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: Text('Enter your phone number (starts with +963)'),
+                    ),
+                  ),
+                  MyTextField(
+                    controller: phoneController,
+                    hintText: '+963xxxxxxxxx',
+                    lableText: 'Phone',
+                    obscureText: false,
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[\d+]')),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+
+                  // Password
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
@@ -123,6 +190,8 @@ class _RegisterState extends State<Register> {
                     toggleVisibility: togglePasswordVisibility,
                   ),
                   const SizedBox(height: 10),
+
+                  // Confirm Password
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
@@ -134,10 +203,12 @@ class _RegisterState extends State<Register> {
                     controller: confirmPasswordController,
                     hintText: 'Confirm password',
                     lableText: 'Confirm password',
-                    obscureText: showPassword,
-                    toggleVisibility: togglePasswordVisibility,
+                    obscureText: showConfirmPassword,
+                    toggleVisibility: toggleConfirmPasswordVisibility,
                   ),
                   const SizedBox(height: 10),
+
+                  // Age
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
@@ -147,38 +218,22 @@ class _RegisterState extends State<Register> {
                   ),
                   MyTextField(
                     controller: ageController,
-                    hintText: 'Age ',
+                    hintText: 'Age (e.g. 25/10)',
                     lableText: 'Age',
                     obscureText: false,
+                    keyboardType: TextInputType.text, // لإظهار السلاش
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 12),
-                      child: Text('Enter your mobile number'),
-                    ),
-                  ),
-                  MyTextField(
-                    controller: phoneController,
-                    hintText: 'Mobile Number',
-                    lableText: 'Mobile Number',
-                    obscureText: false,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
                   const SizedBox(height: 25),
+
                   MyButton(
                     onTap: singUserUp,
                     text: 'Sign Up',
                   ),
                   const SizedBox(height: 10),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -202,7 +257,6 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                   const SizedBox(height: 200),
-                  Text(''),
                 ],
               ),
             ),

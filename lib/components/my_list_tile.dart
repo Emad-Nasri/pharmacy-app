@@ -13,7 +13,7 @@ class MyListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return ListTile(
-      onTap: () => Get.to(page),
+      onTap: () => Get.off(page),
       leading: Icon(
         icon,
         color: isDarkMode ? Colors.yellow : Colors.white,

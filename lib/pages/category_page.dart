@@ -35,7 +35,7 @@ class CategoryPage extends StatelessWidget {
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
             childAspectRatio: 3 / 3.5,
-            children: const [
+            children: [
               MyMedicine(
                 image: 'panadol.jpg',
                 medName: 'Panadol',

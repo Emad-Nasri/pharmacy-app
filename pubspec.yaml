@@ -32,7 +32,6 @@ dependencies:
   get: ^4.7.2
   firebase_core: ^2.25.4
   cloud_firestore: ^4.15.4
-  firebase_messaging: ^14.7.10
   
   flutter:
     sdk: flutter
@@ -46,6 +45,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   provider:
   http: ^1.4.0
+  firebase_messaging: ^14.7.10
 
 dev_dependencies:
   flutter_test:

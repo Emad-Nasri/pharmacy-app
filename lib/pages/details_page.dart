@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmacy_app/components/my_invoice.dart';
+import 'package:pharmacy_app/components/my_medicine.dart';
 import 'package:pharmacy_app/models/date.dart';
 import 'package:pharmacy_app/pages/invoice_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
@@ -101,6 +103,47 @@ class DetailsPage extends StatelessWidget {
                       fontSize: 15,
                       color: textColor,
                       fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      final invoiceController = Get.find<InvoiceController>();
+                      invoiceController.addMedicine(
+                        MyMedicine(
+                          medName: productName,
+                          price: price,
+                          quantity: 1,
+                          image: '',
+                          description: description,
+                          useage: useage,
+                          startD: startD,
+                          startM: startM,
+                          startY: startY,
+                          endD: endD,
+                          endM: endM,
+                          endY: endY,
+                        ),
+                      );
+                      Get.snackbar("Success", "$productName added to invoice");
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 150,
+                          decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add, color: textColor),
+                              Text('Add to invoice',
+                                  style: TextStyle(color: textColor)),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

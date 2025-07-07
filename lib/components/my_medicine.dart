@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pharmacy_app/pages/details_page.dart';
 
 class MyMedicine extends StatelessWidget {
-  const MyMedicine(
+  MyMedicine(
       {super.key,
       required this.image,
       required this.medName,
@@ -17,18 +17,18 @@ class MyMedicine extends StatelessWidget {
       required this.endD,
       required this.endM,
       required this.endY});
-  final String image;
-  final String medName;
-  final String description;
-  final String useage;
-  final double price;
-  final int quantity;
-  final int startD;
-  final int startM;
-  final int startY;
-  final int endD;
-  final int endM;
-  final int endY;
+  String image;
+  String medName;
+  String description;
+  String useage;
+  double price;
+  int quantity;
+  int startD;
+  int startM;
+  int startY;
+  int endD;
+  int endM;
+  int endY;
 
   @override
   Widget build(BuildContext context) {

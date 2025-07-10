@@ -17,7 +17,7 @@ class CategoryPage extends StatelessWidget {
     final iconColor = isDarkMode ? Colors.yellow : Colors.white;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: appBarColor,
         iconTheme: IconThemeData(color: iconColor),

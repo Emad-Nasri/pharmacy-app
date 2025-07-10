@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/components/my_invoice.dart';
-import 'package:pharmacy_app/components/my_medicine.dart';
 import 'package:pharmacy_app/helpers/utils.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 

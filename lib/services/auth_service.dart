@@ -1,7 +1,7 @@
 import 'package:pharmacy_app/helpers/http_helper.dart';
 
 class AuthService {
-  static login(data) async => await HttpHelper.post('login', data);
+  static login(data) async => await HttpHelper.post('Account/login', data);
 
   static signup(data) async => await HttpHelper.post('register', data);
 

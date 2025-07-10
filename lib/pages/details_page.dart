@@ -41,7 +41,7 @@ class DetailsPage extends StatelessWidget {
 
     final textColor = isDarkMode ? Colors.yellow : Colors.black;
     final appBarTextColor = isDarkMode ? Colors.yellow : Colors.white;
-    final backgroundColor = Theme.of(context).colorScheme.background;
+    final backgroundColor = Theme.of(context).colorScheme.surface;
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
     final tabBarColor = isDarkMode ? Colors.yellow : const Color(0xff107163);

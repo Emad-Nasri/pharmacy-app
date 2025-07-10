@@ -48,7 +48,7 @@ class NotificationPage extends StatelessWidget {
     final borderColor = isDarkMode ? Colors.yellow : Colors.black;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: const Drawer(
         width: 200,
         child: MyDrawer(),

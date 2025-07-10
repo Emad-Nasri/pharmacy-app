@@ -9,13 +9,16 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
+
   Get.put(InvoiceController());
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   final ThemeController themeController = Get.put(ThemeController());
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

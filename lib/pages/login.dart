@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/components/my_button.dart';
 import 'package:pharmacy_app/components/my_text_field.dart';
@@ -18,18 +20,35 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   bool showPassword = true;
+  bool isLoading = false;
 
-  void singUserIn() {
-    // login logic
+  void singUserIn() async {
     if (_formKey.currentState!.validate()) {
-      /*Map<String, dynamic> data = {
-        'userName': usernameController.text,
-        'password': passwordController.text,
-      };*/
-      //AuthService.login(data);
-      Get.off(const HomePage());
+      setState(() => isLoading = true);
+
+      final data = {
+        'userName': usernameController.text.trim(),
+        'password': passwordController.text.trim(),
+      };
+
+      try {
+        final response = await AuthService.login(data);
+
+        log(response.toString());
+
+        if (response != null) {
+          Get.off(const HomePage());
+        } else {
+          Get.snackbar('Wrong', 'Login failed. Check data..',
+              snackPosition: SnackPosition.BOTTOM);
+        }
+      } catch (e) {
+        Get.snackbar('Wrong', 'An error occurred while logging in.',
+            snackPosition: SnackPosition.BOTTOM);
+      } finally {
+        setState(() => isLoading = false);
+      }
     }
-    // إذا لم تكن الحقول صالحة، لن يتم تنفيذ شيء
   }
 
   void togglePasswordVisibility() {
@@ -48,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
           child: ListView(
             children: [
               Form(
-                key: _formKey, // ربط النموذج بالمفتاح
+                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -67,14 +86,16 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     const SizedBox(height: 50),
-
                     //welcome back, you have been missed!
+
                     Text(
                       'welcome back, you have been missed!',
                       style: TextStyle(color: Colors.grey[700], fontSize: 16),
                     ),
 
                     const SizedBox(height: 25),
+
+                    //Enter your username
 
                     const Padding(
                       padding: EdgeInsets.only(right: 200, bottom: 12),
@@ -84,7 +105,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-                    //username text field
+                    //TextField for username
+
                     MyTextField(
                       controller: usernameController,
                       hintText: 'Username',
@@ -102,7 +124,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-                    //password text field
                     MyTextField(
                       controller: passwordController,
                       hintText: 'Password',
@@ -111,14 +132,19 @@ class _LoginPageState extends State<LoginPage> {
                       toggleVisibility: togglePasswordVisibility,
                     ),
 
-                    const SizedBox(height: 10),
-
                     const SizedBox(height: 25),
 
-                    MyButton(
-                      onTap: singUserIn,
-                      text: 'Sign In',
-                    ),
+                    isLoading
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xff107163),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const CircularProgressIndicator())
+                        : MyButton(
+                            onTap: singUserIn,
+                            text: 'Sign In',
+                          ),
 
                     const SizedBox(height: 10),
                   ],

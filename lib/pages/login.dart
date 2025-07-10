@@ -136,11 +136,14 @@ class _LoginPageState extends State<LoginPage> {
 
                     isLoading
                         ? Container(
+                            width: 500,
+                            padding: const EdgeInsets.all(25),
+                            margin: const EdgeInsets.symmetric(horizontal: 25),
                             decoration: BoxDecoration(
-                              color: Color(0xff107163),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const CircularProgressIndicator())
+                                color: const Color(0xff107163),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: const Center(
+                                child: CircularProgressIndicator()))
                         : MyButton(
                             onTap: singUserIn,
                             text: 'Sign In',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
+import 'package:pharmacy_app/generated/l10n.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -59,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: appBarColor,
         iconTheme: IconThemeData(color: menuColor),
         title: Text(
-          'Search',
+          S.of(context).search,
           style: TextStyle(color: textColor),
         ),
       ),
@@ -73,8 +74,9 @@ class _SearchPageState extends State<SearchPage> {
               onChanged: filterSearch,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search, color: iconColor),
-                label: Text('Search', style: TextStyle(color: searchColor)),
-                hintText: 'Search for a medicine...',
+                label: Text(S.of(context).search,
+                    style: TextStyle(color: searchColor)),
+                hintText: S.of(context).search1, //search for a product...
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(
@@ -160,9 +162,9 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            const Text(
-                              'No results found.',
-                              style: TextStyle(fontSize: 16),
+                            Text(
+                              S.of(context).no_result,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           ],
                         ))

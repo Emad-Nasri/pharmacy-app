@@ -1,0 +1,30 @@
+{
+    "welcome":"مرحبًا بك من جديد، لقد افتقدناك!",
+    "username":"اسم المستخدم",
+    "enter_your_username":"ادخل اسم المستخدم الخاص بك",
+    "password":"كلمة السر",
+    "enter_your_password":"ادخل كلمة السر الخاصة بك",
+    "sign_in":"تسجيل الدخول",
+
+    "home":"الصفحة الرئيسية",
+    "category":"الفئات",
+    "search":"بحث",
+    "notifications":"اشعارات",
+    "invoice":"فاتورة",
+    "logout":"تسجيل خروج",
+
+    "details":"التفاصيل",
+
+    "search1":"البحث عن منتج...",
+    "no_result":"لا يوجد نتائج",
+
+    "invoiceDate":"تاريخ الفاتورة",
+    "medicine": "دواء",
+    "price": "السعر",
+    "quantity": "الكمية",
+    "total": "المجموع",
+    "printInvoice":"طباعة الفاتورة",
+
+    "expirationDate":"تاريخ انتهاء الصلاحية"
+
+}

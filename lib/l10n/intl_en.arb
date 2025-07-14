@@ -1,1 +1,30 @@
-{}
+{
+    "welcome":"Welcome back, you have been missed!",
+    "username":"Username",
+    "enter_your_username":"Enter your username",
+    "password":"Password",
+    "enter_your_password":"Enter your password",
+    "sign_in":"Sign In",
+    
+    "home":"Home",
+    "category":"Categories",
+    "search":"Search",
+    "notifications":"Notifications",
+    "invoice":"Invoice",
+    "logout":"Logout",
+
+    "details":"Details",
+
+    "search1":"Search for a product...",
+    "no_result":"No results found",
+
+    "invoiceDate":"Invoice Date",
+    "medicine": "Medicine",
+    "price": "Price",
+    "quantity": "Qty",
+    "total": "Total",
+    "printInvoice":"Print Invoice",
+
+    "expirationDate":"Expiration date"
+
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/components/my_invoice.dart';
 import 'package:pharmacy_app/components/my_medicine.dart';
+import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/models/date.dart';
 import 'package:pharmacy_app/pages/invoice_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
@@ -55,7 +56,7 @@ class DetailsPage extends StatelessWidget {
           iconTheme: IconThemeData(color: iconColor),
           backgroundColor: appBarColor,
           title: Text(
-            'Details',
+            S.of(context).details,
             style: TextStyle(color: appBarTextColor),
           ),
           actions: [

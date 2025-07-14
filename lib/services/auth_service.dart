@@ -5,11 +5,18 @@ class AuthService {
   static final _storage = GetStorage();
 
   static Future<Map<String, dynamic>?> login(Map<String, dynamic> data) async {
+    print('object');
     try {
+      print('object1');
       final response = await HttpHelper.post('Account/login', data);
+      print('response: $response');
+      print('object2');
       if (response != null && response['token'] != null) {
         await _storage.write('token', response['token']);
+        print('تم تسجيل الدخول');
+        print('object3');
       }
+      print('object4');
       return response;
     } catch (e) {
       return null;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/pages/details_page.dart';
 
+// ignore: must_be_immutable
 class MyMedicine extends StatelessWidget {
   MyMedicine(
       {super.key,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/pages/details_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 

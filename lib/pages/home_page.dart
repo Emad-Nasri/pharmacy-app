@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pharmacy_app/components/my_category.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
+import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/pages/notification_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
@@ -28,7 +30,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: appBarColor,
         iconTheme: IconThemeData(color: iconColor),
         title: Text(
-          'Home',
+          S.of(context).home,
           style: TextStyle(color: iconColor),
         ),
         actions: [
@@ -63,9 +65,10 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Align(
-              alignment: Alignment.centerLeft,
+              alignment:
+                  isArabic() ? Alignment.centerRight : Alignment.centerLeft,
               child: Text(
-                'Categories',
+                S.of(context).category,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -99,4 +102,8 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+bool isArabic() {
+  return Intl.getCurrentLocale() == 'ar';
 }

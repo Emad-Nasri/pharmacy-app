@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/components/my_list_tile.dart';
+import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/pages/home_page.dart';
 import 'package:pharmacy_app/pages/invoice_page.dart';
 import 'package:pharmacy_app/pages/login.dart';
@@ -19,28 +20,28 @@ class MyDrawer extends StatelessWidget {
       color: isDarkMode ? Colors.grey.shade900 : const Color(0xff107163),
       child: ListView(
         children: [
-          const MyListTile(
-            title: 'Home',
+          MyListTile(
+            title: S.of(context).home,
             icon: Icons.home_outlined,
-            page: HomePage(),
-          ),
-          const MyListTile(
-            title: 'Search',
-            icon: Icons.search,
-            page: SearchPage(),
-          ),
-          const MyListTile(
-            title: 'Notifications',
-            icon: Icons.notifications_none_outlined,
-            page: NotificationPage(),
-          ),
-          const MyListTile(
-            title: 'Invoice',
-            icon: Icons.date_range,
-            page: InvoicePage(),
+            page: const HomePage(),
           ),
           MyListTile(
-            title: 'Logout',
+            title: S.of(context).search,
+            icon: Icons.search,
+            page: const SearchPage(),
+          ),
+          MyListTile(
+            title: S.of(context).notifications,
+            icon: Icons.notifications_none_outlined,
+            page: const NotificationPage(),
+          ),
+          MyListTile(
+            title: S.of(context).invoice,
+            icon: Icons.date_range,
+            page: const InvoicePage(),
+          ),
+          MyListTile(
+            title: S.of(context).logout,
             icon: Icons.logout,
             onTap: () async {
               print('ggg');

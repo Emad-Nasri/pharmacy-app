@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pharmacy_app/components/my_button.dart';
 import 'package:pharmacy_app/components/my_text_field.dart';
 import 'package:get/get.dart';
+import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/pages/home_page.dart';
 import 'package:pharmacy_app/services/auth_service.dart';
 
@@ -23,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
 
   void singUserIn() async {
-    if (_formKey.currentState!.validate()) {
+    /*if (_formKey.currentState!.validate()) {
       setState(() => isLoading = true);
 
       final data = {
@@ -48,7 +50,8 @@ class _LoginPageState extends State<LoginPage> {
       } finally {
         setState(() => isLoading = false);
       }
-    }
+    }*/
+    Get.off(const HomePage());
   }
 
   void togglePasswordVisibility() {
@@ -89,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     //welcome back, you have been missed!
 
                     Text(
-                      'welcome back, you have been missed!',
+                      S.of(context).welcome,
                       style: TextStyle(color: Colors.grey[700], fontSize: 16),
                     ),
 
@@ -97,37 +100,43 @@ class _LoginPageState extends State<LoginPage> {
 
                     //Enter your username
 
-                    const Padding(
-                      padding: EdgeInsets.only(right: 200, bottom: 12),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: isArabic() ? 20 : 200,
+                          left: isArabic() ? 190 : 0,
+                          bottom: 12),
                       child: Text(
-                        'Enter your username',
-                        style: TextStyle(color: Colors.black),
+                        S.of(context).enter_your_username,
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
 
-                    //TextField for username
+                    //TextField for password
 
                     MyTextField(
                       controller: usernameController,
-                      hintText: 'Username',
-                      lableText: 'Username',
+                      hintText: S.of(context).username,
+                      lableText: S.of(context).username,
                       obscureText: false,
                     ),
 
                     const SizedBox(height: 10),
 
-                    const Padding(
-                      padding: EdgeInsets.only(right: 200, bottom: 12),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: isArabic() ? 0 : 200,
+                          left: isArabic() ? 200 : 0,
+                          bottom: 12),
                       child: Text(
-                        'Enter your password',
-                        style: TextStyle(color: Colors.black),
+                        S.of(context).enter_your_password,
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
 
                     MyTextField(
                       controller: passwordController,
-                      hintText: 'Password',
-                      lableText: 'Password',
+                      hintText: S.of(context).password,
+                      lableText: S.of(context).password,
                       obscureText: showPassword,
                       toggleVisibility: togglePasswordVisibility,
                     ),
@@ -148,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                             )))
                         : MyButton(
                             onTap: singUserIn,
-                            text: 'Sign In',
+                            text: S.of(context).sign_in,
                           ),
 
                     const SizedBox(height: 10),
@@ -161,4 +170,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+bool isArabic() {
+  return Intl.getCurrentLocale() == 'ar';
 }

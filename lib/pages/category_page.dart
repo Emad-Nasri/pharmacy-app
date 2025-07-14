@@ -17,7 +17,7 @@ class CategoryPage extends StatelessWidget {
     final iconColor = isDarkMode ? Colors.yellow : Colors.white;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: appBarColor,
         iconTheme: IconThemeData(color: iconColor),
@@ -35,7 +35,7 @@ class CategoryPage extends StatelessWidget {
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
             childAspectRatio: 3 / 3.5,
-            children: const [
+            children: [
               MyMedicine(
                 image: 'panadol.jpg',
                 medName: 'Panadol',

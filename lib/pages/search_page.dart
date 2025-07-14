@@ -50,7 +50,7 @@ class _SearchPageState extends State<SearchPage> {
     final menuColor = isDarkMode ? Colors.yellow : Colors.white;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: const Drawer(
         width: 200,
         child: MyDrawer(),

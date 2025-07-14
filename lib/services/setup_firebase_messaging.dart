@@ -1,18 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-void setupFirebaseMessaging() {
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
+void setupFirebaseMessaging() async {
+  if (!kIsWeb) {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  // طلب الإذن
-  messaging.requestPermission();
+    await messaging.requestPermission();
 
-  // عند استقبال الإشعار والتطبيق مفتوح
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print("Foreground message: ${message.notification?.title}");
-  });
+    String? token = await messaging.getToken();
+    print('FCM Token: $token');
 
-  // عند الضغط على الإشعار
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print("User clicked on notification");
-  });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Message received: ${message.notification?.title}');
+    });
+  } else {
+    print('Skipping FCM setup for web');
+  }
 }

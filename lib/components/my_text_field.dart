@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-//to username and password text field
 class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String lableText;
   final bool obscureText;
   final VoidCallback? toggleVisibility;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
 
   const MyTextField({
     super.key,
@@ -15,17 +17,23 @@ class MyTextField extends StatelessWidget {
     required this.lableText,
     required this.obscureText,
     this.toggleVisibility,
+    this.inputFormatters,
+    this.keyboardType,
   });
 
   @override
   Widget build(BuildContext context) {
     final bool isPassword = lableText.toLowerCase() == 'password';
+    final bool isConfirmPassword =
+        lableText.toLowerCase() == 'confirm password';
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
         cursorColor: const Color(0xff107163),
         style: const TextStyle(color: Color(0xff107163)),
         decoration: InputDecoration(
@@ -41,7 +49,7 @@ class MyTextField extends StatelessWidget {
           filled: true,
           hintText: hintText,
           hintStyle: const TextStyle(color: Color(0xff107163)),
-          suffixIcon: isPassword
+          suffixIcon: isPassword || isConfirmPassword
               ? IconButton(
                   icon: Icon(
                     obscureText ? Icons.visibility_off : Icons.visibility,
@@ -53,13 +61,21 @@ class MyTextField extends StatelessWidget {
         ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
-            return 'please enter a $lableText and dont let it empty';
+            return 'Please enter a $lableText.';
           }
-
+          if (lableText.toLowerCase() == 'age') {
+            if (!RegExp(r'^[0-9/]+$').hasMatch(value.trim())) {
+              return 'Age must contain only numbers and slashes.';
+            }
+          }
+          if (lableText.toLowerCase() == 'phone number') {
+            if (!RegExp(r'^\+963[0-9]{7,}$').hasMatch(value.trim())) {
+              return 'Phone number must start with +963 and contain at least 7 digits after.';
+            }
+          }
           if (isPassword && value.length < 8) {
             return 'Password must be at least 8 characters long.';
           }
-
           return null;
         },
       ),

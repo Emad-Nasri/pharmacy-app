@@ -1,11 +1,27 @@
 import 'package:pharmacy_app/helpers/http_helper.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AuthService {
-  static login(data) async => await HttpHelper.post('Account/login', data);
+  static final _storage = GetStorage();
+
+  static Future<Map<String, dynamic>?> login(Map<String, dynamic> data) async {
+    try {
+      final response = await HttpHelper.post('Account/login', data);
+      if (response != null && response['token'] != null) {
+        await _storage.write('token', response['token']);
+      }
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
 
   static signup(data) async => await HttpHelper.post('register', data);
 
-  static logout() async => await HttpHelper.post('logout', {});
+  static logout() async {
+    await _storage.remove('token');
+    return await HttpHelper.post('logout', {});
+  }
 
   static updateUser(data) async => await HttpHelper.put('user', data);
 

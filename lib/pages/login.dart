@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
 
         log(response.toString());
 
-        if (response != null) {
+        if (response?['token'] != null) {
           Get.off(const HomePage());
         } else {
           Get.snackbar('Wrong', 'Login failed. Check data..',
@@ -143,7 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                                 color: const Color(0xff107163),
                                 borderRadius: BorderRadius.circular(8)),
                             child: const Center(
-                                child: CircularProgressIndicator()))
+                                child: CircularProgressIndicator(
+                              color: Colors.white,
+                            )))
                         : MyButton(
                             onTap: singUserIn,
                             text: 'Sign In',

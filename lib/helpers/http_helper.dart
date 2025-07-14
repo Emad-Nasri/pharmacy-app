@@ -2,16 +2,20 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:get_storage/get_storage.dart';
 
 typedef Json = Map<String, dynamic>;
 
 class HttpHelper {
   static const String _baseUrl = 'http://192.168.1.10:5000/api';
 
-  static Map<String, String> getHeaders() => {
-        'Accept': 'application/json',
-        'Authorization': '12|dvsdfgsdgl234tfdcv',
-      };
+  static Map<String, String> getHeaders() {
+    final token = GetStorage().read('token') ?? '';
+    return {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+  }
 
   static Future<Json> get(String endpoint) async {
     final response = await http.get(
@@ -68,7 +72,7 @@ class HttpHelper {
     String endpoint,
     Map<String, String> fields,
     File? file, {
-    String fileFieldName = 'icon', // يمكن تغييره حسب الحاجة
+    String fileFieldName = 'icon',
   }) async {
     final uri = Uri.parse('$_baseUrl/$endpoint');
     final request = http.MultipartRequest('POST', uri)

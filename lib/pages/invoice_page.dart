@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/components/my_invoice.dart';
+import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/helpers/utils.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
@@ -32,7 +33,7 @@ class InvoicePage extends StatelessWidget {
       ),
       appBar: AppBar(
         title: Text(
-          "Invoice",
+          S.of(context).invoice,
           style: TextStyle(color: iconColor),
         ),
         backgroundColor: appBarColor,
@@ -53,16 +54,20 @@ class InvoicePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Text("Invoice Date: $formattedDate",
+            Text("${S.of(context).invoiceDate}: $formattedDate",
                 style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 20),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Medicine', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Price', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Qty', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(S.of(context).medicine,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(S.of(context).price,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(S.of(context).quantity,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(S.of(context).total,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
             const Divider(color: Colors.black),
@@ -128,7 +133,7 @@ class InvoicePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text("Total: ",
+                Text(S.of(context).total,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -151,15 +156,16 @@ class InvoicePage extends StatelessWidget {
                   border: Border.all(color: borderColor),
                   borderRadius: BorderRadius.circular(100),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.picture_as_pdf,
                       color: Colors.white,
                     ),
-                    SizedBox(width: 10),
-                    Text("Print Invoice",
-                        style: TextStyle(fontSize: 16, color: Colors.white)),
+                    const SizedBox(width: 10),
+                    Text(S.of(context).printInvoice,
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.white)),
                   ],
                 ),
               ),

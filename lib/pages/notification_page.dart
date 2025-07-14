@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/components/my_expiration.dart';
+import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -57,7 +58,7 @@ class NotificationPage extends StatelessWidget {
         backgroundColor: appBarColor,
         iconTheme: IconThemeData(color: iconColor),
         title: Text(
-          'Notifications',
+          S.of(context).notifications,
           style: TextStyle(color: iconColor),
         ),
       ),
@@ -74,7 +75,7 @@ class NotificationPage extends StatelessWidget {
               ),
               child: ListTile(
                 title: Text(
-                  'Expiration date',
+                  S.of(context).expirationDate,
                   style: TextStyle(color: textColor),
                 ),
                 trailing: Icon(

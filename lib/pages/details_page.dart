@@ -81,7 +81,7 @@ class DetailsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Product name: $productName',
+                    '${S.of(context).product_name} : $productName',
                     style: TextStyle(
                       fontSize: 20,
                       color: textColor,
@@ -90,7 +90,7 @@ class DetailsPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Usage: $useage',
+                    '${S.of(context).usage} : $useage',
                     style: TextStyle(
                       fontSize: 15,
                       color: textColor,
@@ -99,7 +99,7 @@ class DetailsPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Price: $price \$',
+                    '${S.of(context).price}: $price \$',
                     style: TextStyle(
                       fontSize: 15,
                       color: textColor,
@@ -125,7 +125,8 @@ class DetailsPage extends StatelessWidget {
                           endY: endY,
                         ),
                       );
-                      Get.snackbar("Success", "$productName added to invoice");
+                      Get.snackbar(S.of(context).success,
+                          "$productName ${S.of(context).added_to_invoice}");
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -133,13 +134,13 @@ class DetailsPage extends StatelessWidget {
                         Container(
                           width: 150,
                           decoration: BoxDecoration(
-                              border: Border.all(),
+                              border: Border.all(color: textColor),
                               borderRadius: BorderRadius.circular(8)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.add, color: textColor),
-                              Text('Add to invoice',
+                              Text(S.of(context).add_to_invoice,
                                   style: TextStyle(color: textColor)),
                             ],
                           ),
@@ -158,9 +159,13 @@ class DetailsPage extends StatelessWidget {
               labelColor: tabBarColor,
               unselectedLabelColor: Colors.grey,
               indicatorColor: tabBarColor,
-              tabs: const [
-                Tab(icon: Icon(Icons.remove_red_eye), text: 'Overview'),
-                Tab(icon: Icon(Icons.local_offer), text: 'Details'),
+              tabs: [
+                Tab(
+                    icon: const Icon(Icons.remove_red_eye),
+                    text: S.of(context).overview),
+                Tab(
+                    icon: const Icon(Icons.local_offer),
+                    text: S.of(context).details),
               ],
             ),
 
@@ -185,7 +190,7 @@ class DetailsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Product name : $productName',
+                          '${S.of(context).product_name} : $productName',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -194,7 +199,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Price : $price \$',
+                          '${S.of(context).price} : $price \$',
                           style: TextStyle(
                             fontSize: 16,
                             color: isDarkMode ? Colors.white : Colors.black87,
@@ -202,7 +207,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Manufacturing date : ${date.day = startD}-${date.month = startM}-${date.year = startY}',
+                          '${S.of(context).manufacturing_date} : ${date.day = startD}-${date.month = startM}-${date.year = startY}',
                           style: TextStyle(
                             fontSize: 16,
                             color: isDarkMode ? Colors.white : Colors.black87,
@@ -210,7 +215,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'ُExpiration date : ${date.day = endD}-${date.month = endM}-${date.year = endY}',
+                          'ُ${S.of(context).expiration_date} : ${date.day = endD}-${date.month = endM}-${date.year = endY}',
                           style: TextStyle(
                             fontSize: 16,
                             color: isDarkMode ? Colors.white : Colors.black87,
@@ -218,7 +223,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'ُQuantity : $quantity',
+                          'ُ${S.of(context).quantity} : $quantity',
                           style: TextStyle(
                             fontSize: 16,
                             color: isDarkMode ? Colors.white : Colors.black87,

@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
 
   void singUserIn() async {
-    /*if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       setState(() => isLoading = true);
 
       final data = {
@@ -50,8 +50,7 @@ class _LoginPageState extends State<LoginPage> {
       } finally {
         setState(() => isLoading = false);
       }
-    }*/
-    Get.off(const HomePage());
+    }
   }
 
   void togglePasswordVisibility() {
@@ -111,13 +110,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-                    //TextField for password
+                    //TextField for username
 
                     MyTextField(
                       controller: usernameController,
                       hintText: S.of(context).username,
                       lableText: S.of(context).username,
                       obscureText: false,
+                      isPasswordField: false,
                     ),
 
                     const SizedBox(height: 10),
@@ -139,6 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                       lableText: S.of(context).password,
                       obscureText: showPassword,
                       toggleVisibility: togglePasswordVisibility,
+                      isPasswordField: true,
                     ),
 
                     const SizedBox(height: 25),

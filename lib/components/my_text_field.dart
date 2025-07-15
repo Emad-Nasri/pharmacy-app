@@ -15,6 +15,7 @@ class MyTextField extends StatelessWidget {
   final VoidCallback? toggleVisibility;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
+  final bool isPasswordField;
 
   const MyTextField({
     super.key,
@@ -22,6 +23,7 @@ class MyTextField extends StatelessWidget {
     required this.hintText,
     required this.lableText,
     required this.obscureText,
+    required this.isPasswordField,
     this.toggleVisibility,
     this.inputFormatters,
     this.keyboardType,
@@ -29,10 +31,6 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isPassword = lableText.toLowerCase() == 'password';
-    final bool isConfirmPassword =
-        lableText.toLowerCase() == 'confirm password';
-
     final eyeIcon = IconButton(
       icon: Icon(
         obscureText ? Icons.visibility_off : Icons.visibility,
@@ -63,13 +61,13 @@ class MyTextField extends StatelessWidget {
           filled: true,
           hintText: hintText,
           hintStyle: const TextStyle(color: Color(0xff107163)),
-          suffixIcon: eyeIcon,
+          suffixIcon: isPasswordField ? eyeIcon : null,
         ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
             return 'Please enter a $lableText.';
           }
-          if (isPassword && value.length < 8) {
+          if (isPasswordField && value.length < 8) {
             return 'Password must be at least 8 characters long.';
           }
           return null;

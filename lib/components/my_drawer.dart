@@ -7,6 +7,7 @@ import 'package:pharmacy_app/pages/invoice_page.dart';
 import 'package:pharmacy_app/pages/login.dart';
 import 'package:pharmacy_app/pages/notification_page.dart';
 import 'package:pharmacy_app/pages/search_page.dart';
+import 'package:pharmacy_app/pages/setting_page.dart';
 import 'package:pharmacy_app/services/auth_service.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -39,6 +40,11 @@ class MyDrawer extends StatelessWidget {
             title: S.of(context).invoice,
             icon: Icons.date_range,
             page: const InvoicePage(),
+          ),
+          MyListTile(
+            title: S.of(context).setting,
+            icon: Icons.settings_outlined,
+            page: const SettingPage(),
           ),
           MyListTile(
             title: S.of(context).logout,

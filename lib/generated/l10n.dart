@@ -200,13 +200,138 @@ class S {
   }
 
   /// `Expiration date`
-  String get expirationDate {
+  String get expiration_date {
     return Intl.message(
       'Expiration date',
-      name: 'expirationDate',
+      name: 'expiration_date',
       desc: '',
       args: [],
     );
+  }
+
+  /// `Expired medications`
+  String get expiration_date_med {
+    return Intl.message(
+      'Expired medications',
+      name: 'expiration_date_med',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product name`
+  String get product_name {
+    return Intl.message(
+      'Product name',
+      name: 'product_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Usage`
+  String get usage {
+    return Intl.message('Usage', name: 'usage', desc: '', args: []);
+  }
+
+  /// `Add to invoice`
+  String get add_to_invoice {
+    return Intl.message(
+      'Add to invoice',
+      name: 'add_to_invoice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Overview`
+  String get overview {
+    return Intl.message('Overview', name: 'overview', desc: '', args: []);
+  }
+
+  /// `Manufacturing date`
+  String get manufacturing_date {
+    return Intl.message(
+      'Manufacturing date',
+      name: 'manufacturing_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message('Success', name: 'success', desc: '', args: []);
+  }
+
+  /// `added to invoice`
+  String get added_to_invoice {
+    return Intl.message(
+      'added to invoice',
+      name: 'added_to_invoice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting`
+  String get setting {
+    return Intl.message('Setting', name: 'setting', desc: '', args: []);
+  }
+
+  /// `Change language`
+  String get change_lang {
+    return Intl.message(
+      'Change language',
+      name: 'change_lang',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arabic`
+  String get arabic {
+    return Intl.message('Arabic', name: 'arabic', desc: '', args: []);
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message('English', name: 'english', desc: '', args: []);
+  }
+
+  /// `Change mode`
+  String get change_mode {
+    return Intl.message('Change mode', name: 'change_mode', desc: '', args: []);
+  }
+
+  /// `Light mode`
+  String get light {
+    return Intl.message('Light mode', name: 'light', desc: '', args: []);
+  }
+
+  /// `Night mode`
+  String get night {
+    return Intl.message('Night mode', name: 'night', desc: '', args: []);
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message('Other', name: 'other', desc: '', args: []);
+  }
+
+  /// `Evaluation`
+  String get evaluation {
+    return Intl.message('Evaluation', name: 'evaluation', desc: '', args: []);
+  }
+
+  /// `Share our app`
+  String get share {
+    return Intl.message('Share our app', name: 'share', desc: '', args: []);
+  }
+
+  /// `Support us`
+  String get support {
+    return Intl.message('Support us', name: 'support', desc: '', args: []);
   }
 }
 

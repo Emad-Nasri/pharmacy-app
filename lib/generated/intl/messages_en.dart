@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
     "success": MessageLookupByLibrary.simpleMessage("Success"),
     "support": MessageLookupByLibrary.simpleMessage("Support us"),
+    "time": MessageLookupByLibrary.simpleMessage("Time"),
     "total": MessageLookupByLibrary.simpleMessage("Total"),
     "usage": MessageLookupByLibrary.simpleMessage("Usage"),
     "username": MessageLookupByLibrary.simpleMessage("Username"),

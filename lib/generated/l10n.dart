@@ -199,6 +199,11 @@ class S {
     );
   }
 
+  /// `Time`
+  String get time {
+    return Intl.message('Time', name: 'time', desc: '', args: []);
+  }
+
   /// `Expiration date`
   String get expiration_date {
     return Intl.message(

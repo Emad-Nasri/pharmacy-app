@@ -24,6 +24,7 @@
     "quantity": "Qty",
     "total": "Total",
     "printInvoice":"Print Invoice",
+    "time": "Time",
 
     "expiration_date":"Expiration date",
     "expiration_date_med":"Expired medications",

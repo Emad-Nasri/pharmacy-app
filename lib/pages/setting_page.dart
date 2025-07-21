@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/components/my_setting_list_tile.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
@@ -65,6 +66,7 @@ class SettingPage extends StatelessWidget {
                         ),
                         onTap: () {
                           Get.updateLocale(const Locale('en', 'US'));
+                          GetStorage().write("lang", 'en');
                           Get.back();
                         },
                       ),
@@ -78,7 +80,8 @@ class SettingPage extends StatelessWidget {
                           style: TextStyle(color: textColor),
                         ),
                         onTap: () {
-                          Get.updateLocale(const Locale('ar', 'EG'));
+                          Get.updateLocale(const Locale('ar', 'SY'));
+                          GetStorage().write("lang", 'ar');
                           Get.back();
                         },
                       ),

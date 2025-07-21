@@ -24,6 +24,7 @@
     "quantity": "الكمية",
     "total": "المجموع",
     "printInvoice":"طباعة الفاتورة",
+    "time": "الوقت",
 
     "expiration_date":"تاريخ انتهاء الصلاحية",
     "expiration_date_med":"الادوية التي شارفت على انتهاء صلاحيتها",

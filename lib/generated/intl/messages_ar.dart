@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "success": MessageLookupByLibrary.simpleMessage("نجاح"),
     "support": MessageLookupByLibrary.simpleMessage("دعم التطبيق"),
+    "time": MessageLookupByLibrary.simpleMessage("الوقت"),
     "total": MessageLookupByLibrary.simpleMessage("المجموع"),
     "usage": MessageLookupByLibrary.simpleMessage("استخداماته"),
     "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),

@@ -109,6 +109,16 @@ class S {
     return Intl.message('Categories', name: 'category', desc: '', args: []);
   }
 
+  /// `Open barcode scanner`
+  String get open_barcode_scanner {
+    return Intl.message(
+      'Open barcode scanner',
+      name: 'open_barcode_scanner',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Search`
   String get search {
     return Intl.message('Search', name: 'search', desc: '', args: []);
@@ -337,6 +347,36 @@ class S {
   /// `Support us`
   String get support {
     return Intl.message('Support us', name: 'support', desc: '', args: []);
+  }
+
+  /// `Barcode Scanner`
+  String get barcode_scanner {
+    return Intl.message(
+      'Barcode Scanner',
+      name: 'barcode_scanner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Result`
+  String get result {
+    return Intl.message('Result', name: 'result', desc: '', args: []);
+  }
+
+  /// `Not yet scanned`
+  String get not_yet_scanned {
+    return Intl.message(
+      'Not yet scanned',
+      name: 'not_yet_scanned',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown`
+  String get unknown {
+    return Intl.message('Unknown', name: 'unknown', desc: '', args: []);
   }
 }
 

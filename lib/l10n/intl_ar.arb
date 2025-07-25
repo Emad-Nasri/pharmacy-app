@@ -8,6 +8,8 @@
 
     "home":"الصفحة الرئيسية",
     "category":"الفئات",
+    "open_barcode_scanner":"افتح ماسح الباركود",
+
     "search":"بحث",
     "notifications":"اشعارات",
     "invoice":"فاتورة",
@@ -47,5 +49,12 @@
     "other":"أخرى",
     "evaluation":"قيم التطبيق",
     "share":"شارك التطبيق",
-    "support":"دعم التطبيق"
+    "support":"دعم التطبيق",
+
+    "barcode_scanner":"ماسح الباركود",
+    "result":"النتيجة",
+    "not_yet_scanned":"لم يتم المسح بعد",
+    "unknown":"غير معروف"
+    
+
 }

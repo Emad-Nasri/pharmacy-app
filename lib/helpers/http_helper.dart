@@ -7,7 +7,7 @@ import 'package:get_storage/get_storage.dart';
 // typedef Json = Map<String, dynamic>;
 
 class HttpHelper {
-  static const String _baseUrl = 'http://192.168.1.6:5200/api';
+  static const String _baseUrl = 'http://192.168.1.10:5200/api';
 
   static Map<String, String> getHeaders() {
     final token = GetStorage().read('token') ?? '';
@@ -99,7 +99,13 @@ class HttpHelper {
 
   static dynamic _handleResponse(http.Response response) {
     try {
+      if (response.body.isEmpty) {
+        // إذا ما في أي بيانات، رجع success فاضي
+        return null;
+      }
+
       final data = json.decode(response.body);
+
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return data;
       } else {

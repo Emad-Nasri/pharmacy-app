@@ -65,10 +65,19 @@ class SettingPage extends StatelessWidget {
                           style: TextStyle(color: textColor),
                         ),
                         onTap: () {
+                          print(
+                              'Tapped on change language to ${S.of(context).english}');
                           Get.updateLocale(const Locale('en', 'US'));
                           GetStorage().write("lang", 'en');
                           Get.back();
                         },
+                      ),
+                      const Divider(
+                        color: Color(0xFF6C8090),
+                        thickness: 2,
+                        indent: 60,
+                        endIndent: 60,
+                        height: 15,
                       ),
                       ListTile(
                         leading: Icon(
@@ -80,6 +89,8 @@ class SettingPage extends StatelessWidget {
                           style: TextStyle(color: textColor),
                         ),
                         onTap: () {
+                          print(
+                              'Tapped on change language to ${S.of(context).arabic}');
                           Get.updateLocale(const Locale('ar', 'SY'));
                           GetStorage().write("lang", 'ar');
                           Get.back();
@@ -95,6 +106,7 @@ class SettingPage extends StatelessWidget {
             icon: Icons.brightness_6,
             title: S.of(context).change_mode,
             onTap: () {
+              print('Tapped on change mode to ${S.of(context).change_mode}');
               final themeController = Get.find<ThemeController>();
 
               Get.bottomSheet(
@@ -113,6 +125,8 @@ class SettingPage extends StatelessWidget {
                           style: TextStyle(color: textColor),
                         ),
                         onTap: () {
+                          print(
+                              'Tapped on change mode to ${S.of(context).light}');
                           Get.changeThemeMode(ThemeMode.light);
                           themeController
                               .saveThemeToBox(false); // false = light
@@ -129,6 +143,7 @@ class SettingPage extends StatelessWidget {
                           style: TextStyle(color: textColor),
                         ),
                         onTap: () {
+                          print('Tapped on  ${S.of(context).night}');
                           Get.changeThemeMode(ThemeMode.dark);
                           themeController.saveThemeToBox(true); // true = dark
                           Get.back();
@@ -153,17 +168,37 @@ class SettingPage extends StatelessWidget {
           MySettingListTile(
             icon: Icons.star_border_outlined,
             title: S.of(context).evaluation,
-            onTap: () {},
+            onTap: () {
+              print('Tapped on dark ${S.of(context).evaluation}');
+            },
+          ),
+          const Divider(
+            color: Color(0xFF6C8090),
+            thickness: 2,
+            indent: 60,
+            endIndent: 60,
+            height: 15,
           ),
           MySettingListTile(
             icon: Icons.share_outlined,
             title: S.of(context).share,
-            onTap: () {},
+            onTap: () {
+              print('Tapped on ${S.of(context).share}');
+            },
+          ),
+          const Divider(
+            color: Color(0xFF6C8090),
+            thickness: 2,
+            indent: 60,
+            endIndent: 60,
+            height: 15,
           ),
           MySettingListTile(
             icon: Icons.message_outlined,
             title: S.of(context).support,
-            onTap: () {},
+            onTap: () {
+              print('Tapped on ${S.of(context).support}');
+            },
           ),
         ],
       ),

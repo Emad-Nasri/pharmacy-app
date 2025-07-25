@@ -8,6 +8,8 @@
     
     "home":"Home",
     "category":"Categories",
+    "open_barcode_scanner":"Open barcode scanner",
+
     "search":"Search",
     "notifications":"Notifications",
     "invoice":"Invoice",
@@ -48,6 +50,11 @@
     "other":"Other",
     "evaluation":"Evaluation",
     "share":"Share our app",
-    "support":"Support us"
+    "support":"Support us",
+
+    "barcode_scanner":"Barcode Scanner",
+    "result":"Result",
+    "not_yet_scanned":"Not yet scanned",
+    "unknown":"Unknown"
 
 }

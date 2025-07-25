@@ -5,6 +5,7 @@ import 'package:pharmacy_app/components/my_category.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/controllers/category_controller.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
+import 'package:pharmacy_app/pages/scanner_page.dart';
 import 'package:pharmacy_app/pages/notification_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
@@ -95,6 +96,15 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ScannerPage()),
+                  );
+                },
+                child: Text(S.of(context).open_barcode_scanner),
+              )
             ],
           ),
         );

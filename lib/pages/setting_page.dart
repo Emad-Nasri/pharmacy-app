@@ -74,9 +74,9 @@ class SettingPage extends StatelessWidget {
                       ),
                       const Divider(
                         color: Color(0xFF6C8090),
-                        thickness: 2,
-                        indent: 60,
-                        endIndent: 60,
+                        thickness: 1,
+                        indent: 20,
+                        endIndent: 20,
                         height: 15,
                       ),
                       ListTile(
@@ -101,6 +101,13 @@ class SettingPage extends StatelessWidget {
                 ),
               );
             },
+          ),
+          const Divider(
+            color: Color(0xFF6C8090),
+            thickness: 1,
+            indent: 20,
+            endIndent: 20,
+            height: 15,
           ),
           MySettingListTile(
             icon: Icons.brightness_6,
@@ -132,6 +139,13 @@ class SettingPage extends StatelessWidget {
                               .saveThemeToBox(false); // false = light
                           Get.back();
                         },
+                      ),
+                      const Divider(
+                        color: Color(0xFF6C8090),
+                        thickness: 1,
+                        indent: 20,
+                        endIndent: 20,
+                        height: 15,
                       ),
                       ListTile(
                         leading: Icon(
@@ -174,9 +188,9 @@ class SettingPage extends StatelessWidget {
           ),
           const Divider(
             color: Color(0xFF6C8090),
-            thickness: 2,
-            indent: 60,
-            endIndent: 60,
+            thickness: 1,
+            indent: 20,
+            endIndent: 20,
             height: 15,
           ),
           MySettingListTile(
@@ -188,9 +202,9 @@ class SettingPage extends StatelessWidget {
           ),
           const Divider(
             color: Color(0xFF6C8090),
-            thickness: 2,
-            indent: 60,
-            endIndent: 60,
+            thickness: 1,
+            indent: 20,
+            endIndent: 20,
             height: 15,
           ),
           MySettingListTile(

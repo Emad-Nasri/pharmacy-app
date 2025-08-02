@@ -66,6 +66,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "price": MessageLookupByLibrary.simpleMessage("السعر"),
     "printInvoice": MessageLookupByLibrary.simpleMessage("طباعة الفاتورة"),
     "product_name": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
+    "product_not_found": MessageLookupByLibrary.simpleMessage(
+      "المنتج غير موجود",
+    ),
     "quantity": MessageLookupByLibrary.simpleMessage("الكمية"),
     "result": MessageLookupByLibrary.simpleMessage("النتيجة"),
     "search": MessageLookupByLibrary.simpleMessage("بحث"),

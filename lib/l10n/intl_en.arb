@@ -38,6 +38,8 @@
     "manufacturing_date":"Manufacturing date",
     "success":"Success",
     "added_to_invoice":"added to invoice",
+    "bacode":"Bacode",
+    "product_not_found":"Product not found",
 
     "setting":"Setting",
     "change_lang":"Change language",

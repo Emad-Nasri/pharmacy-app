@@ -18,6 +18,7 @@ class MyExpiration extends StatelessWidget {
     this.endD,
     this.endM,
     this.endY,
+    this.barcode,
   });
 
   final String? image;
@@ -32,6 +33,7 @@ class MyExpiration extends StatelessWidget {
   final int? endD;
   final int? endM;
   final int? endY;
+  final String? barcode;
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +86,7 @@ class MyExpiration extends StatelessWidget {
                   startD: startD!,
                   startM: startM!,
                   startY: startY!,
+                  barcode: barcode!,
                 ));
               } else {
                 Get.snackbar(

@@ -39,7 +39,7 @@ class MyDrawer extends StatelessWidget {
           MyListTile(
             title: S.of(context).invoice,
             icon: Icons.date_range,
-            page: const InvoicePage(),
+            page: InvoicePage(),
           ),
           MyListTile(
             title: S.of(context).setting,

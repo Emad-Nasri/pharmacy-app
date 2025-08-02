@@ -21,11 +21,13 @@ class DetailsPage extends StatelessWidget {
     required this.startD,
     required this.startM,
     required this.startY,
+    required this.barcode,
   });
 
   final String productName;
   final String description;
   final String useage;
+  final String barcode;
   final double price;
   final int? quantity;
   final int startD;
@@ -66,7 +68,7 @@ class DetailsPage extends StatelessWidget {
                 color: iconColor,
               ),
               onPressed: () {
-                Get.off(const InvoicePage());
+                Get.off(InvoicePage());
               },
             ),
           ],
@@ -123,6 +125,7 @@ class DetailsPage extends StatelessWidget {
                           endD: endD,
                           endM: endM,
                           endY: endY,
+                          barcode: '',
                         ),
                       );
                       Get.snackbar(S.of(context).success,
@@ -224,6 +227,13 @@ class DetailsPage extends StatelessWidget {
                         const SizedBox(height: 10),
                         Text(
                           'ُ${S.of(context).quantity} : $quantity',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: isDarkMode ? Colors.white : Colors.black87,
+                          ),
+                        ),
+                        Text(
+                          'ُ${S.of(context).bacode} : $barcode',
                           style: TextStyle(
                             fontSize: 16,
                             color: isDarkMode ? Colors.white : Colors.black87,

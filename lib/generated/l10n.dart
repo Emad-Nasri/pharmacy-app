@@ -289,6 +289,21 @@ class S {
     );
   }
 
+  /// `Bacode`
+  String get bacode {
+    return Intl.message('Bacode', name: 'bacode', desc: '', args: []);
+  }
+
+  /// `Product not found`
+  String get product_not_found {
+    return Intl.message(
+      'Product not found',
+      name: 'product_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Setting`
   String get setting {
     return Intl.message('Setting', name: 'setting', desc: '', args: []);

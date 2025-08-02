@@ -38,6 +38,8 @@
     "manufacturing_date":"تاريخ التصنيع",
     "success":"نجاح",
     "added_to_invoice":"تمت اضافته للفاتورة",
+    "barcode":"باركود",
+    "product_not_found":"المنتج غير موجود",
 
     "setting":"الاعدادت",
     "change_lang":"تغيير اللغة",

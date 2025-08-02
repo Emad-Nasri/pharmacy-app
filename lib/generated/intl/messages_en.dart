@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "added to invoice",
     ),
     "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
+    "bacode": MessageLookupByLibrary.simpleMessage("Bacode"),
     "barcode_scanner": MessageLookupByLibrary.simpleMessage("Barcode Scanner"),
     "category": MessageLookupByLibrary.simpleMessage("Categories"),
     "change_lang": MessageLookupByLibrary.simpleMessage("Change language"),
@@ -66,6 +67,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "price": MessageLookupByLibrary.simpleMessage("Price"),
     "printInvoice": MessageLookupByLibrary.simpleMessage("Print Invoice"),
     "product_name": MessageLookupByLibrary.simpleMessage("Product name"),
+    "product_not_found": MessageLookupByLibrary.simpleMessage(
+      "Product not found",
+    ),
     "quantity": MessageLookupByLibrary.simpleMessage("Qty"),
     "result": MessageLookupByLibrary.simpleMessage("Result"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),

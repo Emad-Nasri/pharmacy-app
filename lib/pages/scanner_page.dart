@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:pharmacy_app/components/my_invoice.dart';
+import 'package:pharmacy_app/components/my_medicine.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
@@ -13,25 +15,59 @@ class ScannerPage extends StatefulWidget {
 
 class _ScannerPageState extends State<ScannerPage>
     with SingleTickerProviderStateMixin {
-  String barcodeResult = ''; // رح نعين قيمتها لاحقاً داخل initState/build
+  String barcodeResult = '';
   bool isTorchOn = false;
   final MobileScannerController cameraController = MobileScannerController();
 
   late AnimationController _animationController;
   final ThemeController themeController = Get.find();
+  final InvoiceController invoiceController = Get.find();
+
+  // قائمة الأدوية (مؤقتة هنا - ممكن تجي من كنترولر لاحقاً)
+  final List<MyMedicine> allMedicines = [
+    MyMedicine(
+      image: 'panadol.png',
+      medName: 'Panadol',
+      price: 5.0,
+      description: 'مسكن ألم',
+      useage: 'صداع وحمى',
+      quantity: 10,
+      startD: 1,
+      startM: 1,
+      startY: 2024,
+      endD: 1,
+      endM: 1,
+      endY: 2026,
+      barcode: '6213960002111',
+    ),
+    MyMedicine(
+      image: 'amoxil.png',
+      medName: 'Amoxil',
+      price: 7.5,
+      description: 'مضاد حيوي',
+      useage: 'التهابات',
+      quantity: 5,
+      startD: 5,
+      startM: 2,
+      startY: 2024,
+      endD: 5,
+      endM: 2,
+      endY: 2025,
+      barcode: '0987654321',
+    ),
+    // أدوية أخرى...
+  ];
 
   @override
   void initState() {
     super.initState();
-
-    // تعيين النص الافتراضي بعد ما يصير عندنا Context
+//الانيمشن
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         barcodeResult = S.of(context).not_yet_scanned;
       });
     });
-
-    // أنيميشن لخط الليزر
+//ليزر الانيمشن
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -50,6 +86,39 @@ class _ScannerPageState extends State<ScannerPage>
       isTorchOn = !isTorchOn;
       cameraController.toggleTorch();
     });
+  }
+
+  void handleBarcodeScan(String code) async {
+    setState(() {
+      barcodeResult = code;
+    });
+
+    // إيقاف مؤقت
+    cameraController.stop();
+
+    // التحقق من وجود الدواء
+    final found = allMedicines.firstWhereOrNull((med) => med.barcode == code);
+
+    if (found != null) {
+      invoiceController.addMedicine(found);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${found.medName} ${S.of(context).added_to_invoice}'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(S.of(context).product_not_found),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+
+    await Future.delayed(const Duration(seconds: 2));
+    cameraController.start();
   }
 
   @override
@@ -81,7 +150,6 @@ class _ScannerPageState extends State<ScannerPage>
       ),
       body: Stack(
         children: [
-          // الكاميرا
           MobileScanner(
             controller: cameraController,
             onDetect: (BarcodeCapture capture) {
@@ -89,14 +157,10 @@ class _ScannerPageState extends State<ScannerPage>
               if (barcodes.isNotEmpty) {
                 final String code =
                     barcodes.first.rawValue ?? S.of(context).unknown;
-                setState(() {
-                  barcodeResult = code;
-                });
+                handleBarcodeScan(code);
               }
             },
           ),
-
-          // الإطار مع خط الليزر
           Center(
             child: SizedBox(
               width: 250,
@@ -127,8 +191,6 @@ class _ScannerPageState extends State<ScannerPage>
               ),
             ),
           ),
-
-          // النتيجة أسفل الشاشة
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(

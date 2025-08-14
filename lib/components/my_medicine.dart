@@ -4,24 +4,28 @@ import 'package:pharmacy_app/pages/details_page.dart';
 
 // ignore: must_be_immutable
 class MyMedicine extends StatelessWidget {
-  MyMedicine(
-      {super.key,
-      required this.image,
-      required this.medName,
-      required this.price,
-      required this.description,
-      required this.useage,
-      required this.quantity,
-      required this.startD,
-      required this.startM,
-      required this.startY,
-      required this.endD,
-      required this.endM,
-      required this.endY});
+  MyMedicine({
+    super.key,
+    required this.image,
+    required this.medName,
+    required this.price,
+    required this.description,
+    required this.useage,
+    required this.quantity,
+    required this.startD,
+    required this.startM,
+    required this.startY,
+    required this.endD,
+    required this.endM,
+    required this.endY,
+    this.barcode, // صار nullable
+  });
+
   String image;
   String medName;
   String description;
   String useage;
+  String? barcode; // nullable
   double price;
   int quantity;
   int startD;
@@ -48,6 +52,7 @@ class MyMedicine extends StatelessWidget {
               endD: endD,
               endM: endM,
               endY: endY,
+              barcode: barcode ?? '', // لو null رح نعطيها قيمة فارغة
             ));
       },
       child: Container(

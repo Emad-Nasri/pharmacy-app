@@ -51,6 +51,7 @@ class CategoryPage extends StatelessWidget {
                 endD: 9,
                 endM: 10,
                 endY: 2025,
+                barcode: '6213960002111',
               ),
               MyMedicine(
                 image: 'panadol.jpg',
@@ -67,6 +68,7 @@ class CategoryPage extends StatelessWidget {
                 endD: 9,
                 endM: 10,
                 endY: 2025,
+                barcode: '6213960002111',
               ),
               MyMedicine(
                 image: 'panadol.jpg',
@@ -83,6 +85,7 @@ class CategoryPage extends StatelessWidget {
                 endD: 9,
                 endM: 10,
                 endY: 2025,
+                barcode: '6213960002111',
               ),
               MyMedicine(
                 image: 'panadol.jpg',
@@ -99,6 +102,7 @@ class CategoryPage extends StatelessWidget {
                 endD: 9,
                 endM: 10,
                 endY: 2025,
+                barcode: '6213960002111',
               ),
               MyMedicine(
                 image: 'panadol.jpg',
@@ -115,6 +119,7 @@ class CategoryPage extends StatelessWidget {
                 endD: 9,
                 endM: 10,
                 endY: 2025,
+                barcode: '6213960002111',
               ),
               MyMedicine(
                 image: 'panadol.jpg',
@@ -131,6 +136,7 @@ class CategoryPage extends StatelessWidget {
                 endD: 9,
                 endM: 10,
                 endY: 2025,
+                barcode: '6213960002111',
               ),
               MyMedicine(
                 image: 'panadol.jpg',
@@ -147,6 +153,7 @@ class CategoryPage extends StatelessWidget {
                 endD: 9,
                 endM: 10,
                 endY: 2025,
+                barcode: '6213960002111',
               ),
               MyMedicine(
                 image: 'panadol.jpg',
@@ -163,6 +170,7 @@ class CategoryPage extends StatelessWidget {
                 endD: 9,
                 endM: 10,
                 endY: 2025,
+                barcode: '6213960002111',
               ),
             ],
           ),

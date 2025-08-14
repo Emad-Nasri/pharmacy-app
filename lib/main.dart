@@ -25,7 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      locale: const Locale('ar'),
+      locale: GetStorage().read("lang") == "ar"
+          ? const Locale("ar", "SY")
+          : GetStorage().read("lang") == "en"
+              ? const Locale("en", "US")
+              : Get.deviceLocale,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

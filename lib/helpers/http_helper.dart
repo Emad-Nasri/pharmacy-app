@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
 
-typedef Json = Map<String, dynamic>;
+// typedef Json = Map<String, dynamic>;
 
 class HttpHelper {
-  static const String _baseUrl = 'http://192.168.1.10:5000/api';
+  static const String _baseUrl = 'http://192.168.1.4:5200/api';
 
   static Map<String, String> getHeaders() {
     final token = GetStorage().read('token') ?? '';
@@ -17,7 +17,7 @@ class HttpHelper {
     };
   }
 
-  static Future<Json> get(String endpoint) async {
+  static Future<dynamic> get(String endpoint) async {
     final response = await http.get(
       Uri.parse('$_baseUrl/$endpoint'),
       headers: {
@@ -28,7 +28,7 @@ class HttpHelper {
     return _handleResponse(response);
   }
 
-  static Future<Json?> post(String endpoint, dynamic data) async {
+  static Future<dynamic> post(String endpoint, dynamic data) async {
     try {
       final response = await http.post(
         Uri.parse('$_baseUrl/$endpoint'),
@@ -45,7 +45,7 @@ class HttpHelper {
     }
   }
 
-  static Future<Json> put(String endpoint, dynamic data) async {
+  static Future<dynamic> put(String endpoint, dynamic data) async {
     final response = await http.put(
       Uri.parse('$_baseUrl/$endpoint'),
       headers: {
@@ -57,7 +57,7 @@ class HttpHelper {
     return _handleResponse(response);
   }
 
-  static Future<Json> delete(String endpoint) async {
+  static Future<dynamic> delete(String endpoint) async {
     final response = await http.delete(
       Uri.parse('$_baseUrl/$endpoint'),
       headers: {
@@ -68,7 +68,7 @@ class HttpHelper {
     return _handleResponse(response);
   }
 
-  static Future<Json> postMultipart(
+  static Future<dynamic> postMultipart(
     String endpoint,
     Map<String, String> fields,
     File? file, {
@@ -97,9 +97,15 @@ class HttpHelper {
     return _handleResponse(response);
   }
 
-  static Json _handleResponse(http.Response response) {
+  static dynamic _handleResponse(http.Response response) {
     try {
+      if (response.body.isEmpty) {
+        // إذا ما في أي بيانات، رجع success فاضي
+        return null;
+      }
+
       final data = json.decode(response.body);
+
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return data;
       } else {

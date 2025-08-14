@@ -8,6 +8,8 @@
     
     "home":"Home",
     "category":"Categories",
+    "open_barcode_scanner":"Open barcode scanner",
+
     "search":"Search",
     "notifications":"Notifications",
     "invoice":"Invoice",
@@ -24,7 +26,37 @@
     "quantity": "Qty",
     "total": "Total",
     "printInvoice":"Print Invoice",
+    "time": "Time",
 
-    "expirationDate":"Expiration date"
+    "expiration_date":"Expiration date",
+    "expiration_date_med":"Expired medications",
+
+    "product_name":"Product name",
+    "usage":"Usage",
+    "add_to_invoice":"Add to invoice",
+    "overview":"Overview",
+    "manufacturing_date":"Manufacturing date",
+    "success":"Success",
+    "added_to_invoice":"added to invoice",
+    "bacode":"Bacode",
+    "product_not_found":"Product not found",
+
+    "setting":"Setting",
+    "change_lang":"Change language",
+    "arabic":"Arabic",
+    "english":"English",
+    "change_mode":"Change mode",
+    "light":"Light mode",
+    "night":"Night mode",
+
+    "other":"Other",
+    "evaluation":"Evaluation",
+    "share":"Share our app",
+    "support":"Support us",
+
+    "barcode_scanner":"Barcode Scanner",
+    "result":"Result",
+    "not_yet_scanned":"Not yet scanned",
+    "unknown":"Unknown"
 
 }

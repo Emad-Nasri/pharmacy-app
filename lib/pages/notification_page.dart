@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/components/my_expiration.dart';
+import 'package:pharmacy_app/components/my_text_field.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
@@ -75,12 +76,14 @@ class NotificationPage extends StatelessWidget {
               ),
               child: ListTile(
                 title: Text(
-                  S.of(context).expirationDate,
+                  S.of(context).expiration_date_med,
                   style: TextStyle(color: textColor),
                 ),
                 trailing: Icon(
                   // الأيقونة على اليمين وتشير لليمين
-                  Icons.keyboard_arrow_right,
+                  isArabic()
+                      ? Icons.keyboard_arrow_left
+                      : Icons.keyboard_arrow_right,
                   color: textColor,
                 ),
                 onTap: () {

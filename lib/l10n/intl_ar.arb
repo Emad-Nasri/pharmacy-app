@@ -8,6 +8,8 @@
 
     "home":"الصفحة الرئيسية",
     "category":"الفئات",
+    "open_barcode_scanner":"افتح ماسح الباركود",
+
     "search":"بحث",
     "notifications":"اشعارات",
     "invoice":"فاتورة",
@@ -24,7 +26,37 @@
     "quantity": "الكمية",
     "total": "المجموع",
     "printInvoice":"طباعة الفاتورة",
+    "time": "الوقت",
 
-    "expirationDate":"تاريخ انتهاء الصلاحية"
+    "expiration_date":"تاريخ انتهاء الصلاحية",
+    "expiration_date_med":"الادوية التي شارفت على انتهاء صلاحيتها",
+
+    "product_name":"اسم المنتج",
+    "usage":"استخداماته",
+    "add_to_invoice":"اضافة للفاتورة",
+    "overview":"نظرة عامة",
+    "manufacturing_date":"تاريخ التصنيع",
+    "success":"نجاح",
+    "added_to_invoice":"تمت اضافته للفاتورة",
+    "barcode":"باركود",
+    "product_not_found":"المنتج غير موجود",
+
+    "setting":"الاعدادت",
+    "change_lang":"تغيير اللغة",
+    "arabic":"العربية",
+    "english":"الانكليزية",
+    "change_mode":"تغيير الوضع",
+    "light":"الوضع النهاري",
+    "night":"الوضع الليلي",
+    "other":"أخرى",
+    "evaluation":"قيم التطبيق",
+    "share":"شارك التطبيق",
+    "support":"دعم التطبيق",
+
+    "barcode_scanner":"ماسح الباركود",
+    "result":"النتيجة",
+    "not_yet_scanned":"لم يتم المسح بعد",
+    "unknown":"غير معروف"
+    
 
 }

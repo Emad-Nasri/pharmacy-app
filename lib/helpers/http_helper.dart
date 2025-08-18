@@ -25,6 +25,8 @@ class HttpHelper {
         'Content-Type': 'application/json',
       },
     );
+    print('status code: ${response.statusCode}');
+    print('Body: ${response.body}');
     return _handleResponse(response);
   }
 

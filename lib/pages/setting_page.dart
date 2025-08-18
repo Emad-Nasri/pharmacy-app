@@ -96,6 +96,7 @@ class SettingPage extends StatelessWidget {
                           Get.back();
                         },
                       ),
+                      const SizedBox(height: 50),
                     ],
                   ),
                 ),
@@ -163,6 +164,7 @@ class SettingPage extends StatelessWidget {
                           Get.back();
                         },
                       ),
+                      const SizedBox(height: 50),
                     ],
                   ),
                 ),

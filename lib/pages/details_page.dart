@@ -68,7 +68,7 @@ class DetailsPage extends StatelessWidget {
                 color: iconColor,
               ),
               onPressed: () {
-                Get.off(InvoicePage());
+                Get.off(const InvoicePage());
               },
             ),
           ],

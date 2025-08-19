@@ -8,6 +8,7 @@ import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/pages/scanner_page.dart';
 import 'package:pharmacy_app/pages/notification_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
+import 'package:pharmacy_app/variabels/theme_color.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,11 +17,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
     final CategoryController categoryController = Get.put(CategoryController());
-
-    final isDarkMode = themeController.theme == ThemeMode.dark;
-    final appBarColor =
-        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -97,14 +93,38 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      isDarkMode ? Colors.grey.shade800 : Colors.white,
+                  foregroundColor: isDarkMode ? Colors.yellow : Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  elevation: 0,
+                  minimumSize: const Size(0, 0),
+                  maximumSize: const Size(250, 50),
+                  side: const BorderSide(
+                    color: Color(0xff107163),
+                    width: 2,
+                  ),
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const ScannerPage()),
-                  );
+                  Get.to(const ScannerPage());
+                  print('go to scanner page');
                 },
-                child: Text(S.of(context).open_barcode_scanner),
-              )
+                child: Row(
+                  children: [
+                    Image.asset('assets/images/barcode.png', height: 50),
+                    Text(S.of(context).open_barcode_scanner),
+                  ],
+                ),
+              ),
             ],
           ),
         );

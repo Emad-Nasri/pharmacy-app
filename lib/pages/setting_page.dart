@@ -5,23 +5,13 @@ import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/components/my_setting_list_tile.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
+import 'package:pharmacy_app/variabels/theme_color.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final appBarColor =
-        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final appBarTextColor = isDarkMode ? Colors.yellow : Colors.white;
-    final settingColor =
-        isDarkMode ? Colors.yellow : const Color.fromARGB(255, 177, 170, 170);
-    final menuColor = isDarkMode ? Colors.yellow : Colors.white;
-    final textColor = isDarkMode ? Colors.yellow : Colors.black;
-    final iconColor = isDarkMode ? Colors.yellow : Colors.black;
-    final containerColor = isDarkMode ? Colors.grey.shade900 : Colors.white;
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: const Drawer(

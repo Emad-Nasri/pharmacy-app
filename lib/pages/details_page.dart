@@ -6,6 +6,7 @@ import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/models/date.dart';
 import 'package:pharmacy_app/pages/invoice_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
+import 'package:pharmacy_app/variabels/theme_color.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({
@@ -41,14 +42,7 @@ class DetailsPage extends StatelessWidget {
     Date date = Date(date: '', day: 0, month: 0, year: 0);
     final ThemeController themeController = Get.find();
     final isDarkMode = themeController.theme == ThemeMode.dark;
-
-    final textColor = isDarkMode ? Colors.yellow : Colors.black;
-    final appBarTextColor = isDarkMode ? Colors.yellow : Colors.white;
     final backgroundColor = Theme.of(context).colorScheme.surface;
-    final appBarColor =
-        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final tabBarColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
 
     return DefaultTabController(
       length: 2,

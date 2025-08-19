@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
+import 'package:pharmacy_app/variabels/theme_color.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -43,12 +44,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final appBarColor =
-        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final textColor = isDarkMode ? Colors.yellow : Colors.white;
-    final iconColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
-    final searchColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
-    final menuColor = isDarkMode ? Colors.yellow : Colors.white;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,

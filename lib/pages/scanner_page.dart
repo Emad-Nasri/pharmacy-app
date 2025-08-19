@@ -5,6 +5,7 @@ import 'package:pharmacy_app/components/my_invoice.dart';
 import 'package:pharmacy_app/components/my_medicine.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
+import 'package:pharmacy_app/variabels/theme_color.dart';
 
 class ScannerPage extends StatefulWidget {
   const ScannerPage({super.key});
@@ -123,12 +124,6 @@ class _ScannerPageState extends State<ScannerPage>
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = themeController.theme == ThemeMode.dark;
-    final appBarColor =
-        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final laserLineColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
-    final titleAndIconColor = isDarkMode ? Colors.yellow : Colors.white;
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pharmacy_app/components/my_medicine.dart';
-import 'package:pharmacy_app/theme/theme_controller.dart';
+import 'package:pharmacy_app/variabels/theme_color.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({super.key, required this.catName});
@@ -9,13 +8,6 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = Get.find();
-    final isDarkMode = themeController.theme == ThemeMode.dark;
-
-    final appBarColor =
-        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(

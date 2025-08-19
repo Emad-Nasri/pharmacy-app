@@ -8,7 +8,6 @@ import 'package:pharmacy_app/generated/l10n.dart';
 import 'package:pharmacy_app/pages/scanner_page.dart';
 import 'package:pharmacy_app/pages/notification_page.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
-import 'package:pharmacy_app/variabels/theme_color.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,6 +16,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
     final CategoryController categoryController = Get.put(CategoryController());
+
+    final isDarkMode = themeController.theme == ThemeMode.dark;
+    final appBarColor =
+        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
+    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
+    final borderColor = isDarkMode ? Colors.yellow : Colors.black;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -103,8 +108,8 @@ class HomePage extends StatelessWidget {
                   elevation: 0,
                   minimumSize: const Size(0, 0),
                   maximumSize: const Size(250, 50),
-                  side: const BorderSide(
-                    color: Color(0xff107163),
+                  side: BorderSide(
+                    color: borderColor,
                     width: 2,
                   ),
                   alignment: Alignment.center,

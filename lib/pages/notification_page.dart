@@ -4,7 +4,7 @@ import 'package:pharmacy_app/components/my_drawer.dart';
 import 'package:pharmacy_app/components/my_expiration.dart';
 import 'package:pharmacy_app/components/my_text_field.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
-import 'package:pharmacy_app/variabels/theme_color.dart';
+import 'package:pharmacy_app/theme/theme_controller.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({
@@ -38,6 +38,17 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeController themeController = Get.find();
+    final isDarkMode = themeController.theme == ThemeMode.dark;
+
+    final appBarColor =
+        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
+    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
+    final boxDecorationColor =
+        isDarkMode ? Colors.grey.shade800 : Colors.grey.shade100;
+    final textColor = isDarkMode ? Colors.yellow : Colors.black;
+    final borderColor = isDarkMode ? Colors.yellow : Colors.black;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: const Drawer(

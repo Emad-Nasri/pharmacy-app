@@ -7,7 +7,8 @@
     "sign_in":"Sign In",
     
     "home":"Home",
-    "category":"Categories",
+    "medicines_categories":"Medicines categories",
+    "products_categories":"Product categories",
     "open_barcode_scanner":"Open barcode scanner",
 
     "search":"Search",
@@ -16,6 +17,7 @@
     "logout":"Logout",
 
     "details":"Details",
+    "no_description":"no description",
 
     "search1":"Search for a product...",
     "no_result":"No results found",

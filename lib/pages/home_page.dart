@@ -43,9 +43,7 @@ class HomePage extends StatelessWidget {
               Icon(Icons.wb_sunny, color: iconColor),
               Switch(
                 value: isDarkMode,
-                onChanged: (value) {
-                  themeController.toggleTheme();
-                },
+                onChanged: (_) => themeController.toggleTheme(),
                 activeColor: iconColor,
                 activeTrackColor: Colors.grey.shade600,
                 inactiveThumbColor: iconColor,
@@ -62,15 +60,33 @@ class HomePage extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
+        // لو عندك error في الكونترولر (اختياري)
+        if ((categoryController.error.value ?? '').isNotEmpty) {
+          return Center(
+            child: Text(
+              categoryController.error.value!,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: isDarkMode ? Colors.yellow : Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          );
+        }
+
+        final meds = categoryController.medicineCategories;
+        final prods = categoryController.productCategories;
+
         return SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              // عنوان فئات الأدوية
               Align(
                 alignment:
                     isArabic() ? Alignment.centerRight : Alignment.centerLeft,
                 child: Text(
-                  S.of(context).category,
+                  S.of(context).medicines_categories,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -79,10 +95,12 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+
+              // Grid فئات الأدوية
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: categoryController.categories.length,
+                itemCount: meds.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 10,
@@ -90,13 +108,48 @@ class HomePage extends StatelessWidget {
                   childAspectRatio: 3 / 3.5,
                 ),
                 itemBuilder: (context, index) {
-                  final cat = categoryController.categories[index];
-                  return MyCategory(
-                    catName: cat.name,
-                    image: cat.image ?? 'logo.png',
-                  );
+                  final cat = meds[index];
+                  return MyCategory(catName: cat.name, urlImage: cat.image);
                 },
               ),
+
+              const SizedBox(height: 24),
+
+              // عنوان فئات المنتجات
+              Align(
+                alignment:
+                    isArabic() ? Alignment.centerRight : Alignment.centerLeft,
+                child: Text(
+                  S.of(context).products_categories,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: isDarkMode ? Colors.yellow : Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Grid فئات المنتجات
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: prods.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 3 / 3.5,
+                ),
+                itemBuilder: (context, index) {
+                  final cat = prods[index];
+                  return MyCategory(catName: cat.name, urlImage: cat.image);
+                },
+              ),
+
+              const SizedBox(height: 24),
+
+              // زر قارئ الباركود
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
@@ -119,13 +172,12 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                onPressed: () {
-                  Get.to(const ScannerPage());
-                  print('go to scanner page');
-                },
+                onPressed: () => Get.to(const ScannerPage()),
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset('assets/images/barcode.png', height: 50),
+                    const SizedBox(width: 8),
                     Text(S.of(context).open_barcode_scanner),
                   ],
                 ),

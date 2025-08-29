@@ -28,7 +28,6 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
     "barcode_scanner": MessageLookupByLibrary.simpleMessage("ماسح الباركود"),
-    "category": MessageLookupByLibrary.simpleMessage("الفئات"),
     "change_lang": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
     "change_mode": MessageLookupByLibrary.simpleMessage("تغيير الوضع"),
     "details": MessageLookupByLibrary.simpleMessage("التفاصيل"),
@@ -53,7 +52,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "logout": MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
     "manufacturing_date": MessageLookupByLibrary.simpleMessage("تاريخ التصنيع"),
     "medicine": MessageLookupByLibrary.simpleMessage("دواء"),
+    "medicines_categories": MessageLookupByLibrary.simpleMessage(
+      "فئات الادوية",
+    ),
     "night": MessageLookupByLibrary.simpleMessage("الوضع الليلي"),
+    "no_description": MessageLookupByLibrary.simpleMessage("لا وصف"),
     "no_result": MessageLookupByLibrary.simpleMessage("لا يوجد نتائج"),
     "not_yet_scanned": MessageLookupByLibrary.simpleMessage("لم يتم المسح بعد"),
     "notifications": MessageLookupByLibrary.simpleMessage("اشعارات"),
@@ -68,6 +71,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "product_name": MessageLookupByLibrary.simpleMessage("اسم المنتج"),
     "product_not_found": MessageLookupByLibrary.simpleMessage(
       "المنتج غير موجود",
+    ),
+    "products_categories": MessageLookupByLibrary.simpleMessage(
+      "فئات المنتجات",
     ),
     "quantity": MessageLookupByLibrary.simpleMessage("الكمية"),
     "result": MessageLookupByLibrary.simpleMessage("النتيجة"),

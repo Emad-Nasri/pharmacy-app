@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pharmacy_app/components/my_invoice.dart';
 import 'package:pharmacy_app/generated/l10n.dart';
+import 'package:pharmacy_app/pages/home_page.dart';
 import 'package:pharmacy_app/pages/splash_screen.dart';
 import 'package:pharmacy_app/theme/theme_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: themeController.theme,
-      home: const SplashScreen(),
+      home: const HomePage(),
     );
   }
 }

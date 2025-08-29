@@ -7,7 +7,7 @@ import 'package:get_storage/get_storage.dart';
 // typedef Json = Map<String, dynamic>;
 
 class HttpHelper {
-  static const String _baseUrl = 'http://192.168.1.9:5200/api';
+  static const String _baseUrl = 'http://192.168.137.220:5200/api';
 
   static Map<String, String> getHeaders() {
     final token = GetStorage().read('token') ?? '';
@@ -25,6 +25,8 @@ class HttpHelper {
         'Content-Type': 'application/json',
       },
     );
+    print('status code: ${response.statusCode}');
+    print('Body: ${response.body}');
     return _handleResponse(response);
   }
 

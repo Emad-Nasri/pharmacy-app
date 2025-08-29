@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmacy_app/pages/category_page.dart';
+import 'package:pharmacy_app/pages/product_category_page.dart';
 
 class MyCategory extends StatelessWidget {
-  const MyCategory({super.key, required this.catName, required this.image});
+  const MyCategory({super.key, required this.catName, required this.urlImage});
   final String catName;
-  final String image;
+  final String? urlImage;
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: () {
-        Get.to(() => CategoryPage(
+        Get.to(() => ProductCategoryPage(
               catName: catName,
             ));
       },
@@ -32,10 +32,12 @@ class MyCategory extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Image.asset(
-                'assets/images/$image',
-                fit: BoxFit.contain,
-              ),
+              child: urlImage.isNull
+                  ? const Icon(Icons.image)
+                  : Image.network(
+                      urlImage!,
+                      fit: BoxFit.contain,
+                    ),
             ),
             const SizedBox(height: 8),
             Expanded(

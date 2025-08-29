@@ -104,9 +104,24 @@ class S {
     return Intl.message('Home', name: 'home', desc: '', args: []);
   }
 
-  /// `Categories`
-  String get category {
-    return Intl.message('Categories', name: 'category', desc: '', args: []);
+  /// `Medicines categories`
+  String get medicines_categories {
+    return Intl.message(
+      'Medicines categories',
+      name: 'medicines_categories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product categories`
+  String get products_categories {
+    return Intl.message(
+      'Product categories',
+      name: 'products_categories',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Open barcode scanner`
@@ -147,6 +162,16 @@ class S {
   /// `Details`
   String get details {
     return Intl.message('Details', name: 'details', desc: '', args: []);
+  }
+
+  /// `no description`
+  String get no_description {
+    return Intl.message(
+      'no description',
+      name: 'no_description',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Search for a product...`

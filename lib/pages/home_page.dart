@@ -21,6 +21,7 @@ class HomePage extends StatelessWidget {
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
     final iconColor = isDarkMode ? Colors.yellow : Colors.white;
+    final borderColor = isDarkMode ? Colors.yellow : Colors.black;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -42,9 +43,7 @@ class HomePage extends StatelessWidget {
               Icon(Icons.wb_sunny, color: iconColor),
               Switch(
                 value: isDarkMode,
-                onChanged: (value) {
-                  themeController.toggleTheme();
-                },
+                onChanged: (_) => themeController.toggleTheme(),
                 activeColor: iconColor,
                 activeTrackColor: Colors.grey.shade600,
                 inactiveThumbColor: iconColor,
@@ -61,15 +60,33 @@ class HomePage extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
+        // لو عندك error في الكونترولر (اختياري)
+        if ((categoryController.error.value ?? '').isNotEmpty) {
+          return Center(
+            child: Text(
+              categoryController.error.value!,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: isDarkMode ? Colors.yellow : Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          );
+        }
+
+        final meds = categoryController.medicineCategories;
+        final prods = categoryController.productCategories;
+
         return SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              // عنوان فئات الأدوية
               Align(
                 alignment:
                     isArabic() ? Alignment.centerRight : Alignment.centerLeft,
                 child: Text(
-                  S.of(context).category,
+                  S.of(context).medicines_categories,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -78,10 +95,12 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+
+              // Grid فئات الأدوية
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: categoryController.categories.length,
+                itemCount: meds.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 10,
@@ -89,22 +108,80 @@ class HomePage extends StatelessWidget {
                   childAspectRatio: 3 / 3.5,
                 ),
                 itemBuilder: (context, index) {
-                  final cat = categoryController.categories[index];
-                  return MyCategory(
-                    catName: cat.name,
-                    image: cat.image ?? 'logo.png',
-                  );
+                  final cat = meds[index];
+                  return MyCategory(catName: cat.name, urlImage: cat.image);
                 },
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const ScannerPage()),
-                  );
+
+              const SizedBox(height: 24),
+
+              // عنوان فئات المنتجات
+              Align(
+                alignment:
+                    isArabic() ? Alignment.centerRight : Alignment.centerLeft,
+                child: Text(
+                  S.of(context).products_categories,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: isDarkMode ? Colors.yellow : Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Grid فئات المنتجات
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: prods.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 3 / 3.5,
+                ),
+                itemBuilder: (context, index) {
+                  final cat = prods[index];
+                  return MyCategory(catName: cat.name, urlImage: cat.image);
                 },
-                child: Text(S.of(context).open_barcode_scanner),
-              )
+              ),
+
+              const SizedBox(height: 24),
+
+              // زر قارئ الباركود
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      isDarkMode ? Colors.grey.shade800 : Colors.white,
+                  foregroundColor: isDarkMode ? Colors.yellow : Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  elevation: 0,
+                  minimumSize: const Size(0, 0),
+                  maximumSize: const Size(250, 50),
+                  side: BorderSide(
+                    color: borderColor,
+                    width: 2,
+                  ),
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () => Get.to(const ScannerPage()),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset('assets/images/barcode.png', height: 50),
+                    const SizedBox(width: 8),
+                    Text(S.of(context).open_barcode_scanner),
+                  ],
+                ),
+              ),
             ],
           ),
         );

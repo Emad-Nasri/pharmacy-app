@@ -3,30 +3,42 @@ import 'package:pharmacy_app/helpers/http_helper.dart';
 import 'package:pharmacy_app/models/category_model.dart';
 
 class CategoryController extends GetxController {
-  var categories = <CategoryModel>[].obs;
-  var isLoading = true.obs;
+  /// قائمتين منفصلتين
+  var productCategories = <CategoryModel>[].obs;
+  var medicineCategories = <CategoryModel>[].obs;
+
+  var isLoading = false.obs;
+  var error = RxnString();
 
   @override
   void onInit() {
-    fetchCategories();
     super.onInit();
+    fetchCategories();
   }
 
-  void fetchCategories() async {
+  Future<void> fetchCategories() async {
     try {
-      isLoading(true);
-      final List data = await HttpHelper.get('ProductCategory');
-      print("API Response: $data");
+      isLoading.value = true;
+      error.value = null;
 
-      categories.value = data
+      // --- ProductCategory ---
+      final List productData = await HttpHelper.get('ProductCategory');
+      productCategories.value = productData
           .map((e) => CategoryModel.fromJson(e))
-          .where((c) => c.id != 0) // تجاهل الفاضي أو الغلط
+          .where((c) => c.id != 0)
+          .toList();
+
+      // --- MedicineCategory ---
+      final List medicineData = await HttpHelper.get('MedicineCategory');
+      medicineCategories.value = medicineData
+          .map((e) => CategoryModel.fromJson(e))
+          .where((c) => c.id != 0)
           .toList();
     } catch (e) {
-      print("FetchCategories Error: $e");
+      error.value = e.toString();
       Get.snackbar("Error", "Something went wrong");
     } finally {
-      isLoading(false);
+      isLoading.value = false;
     }
   }
 }

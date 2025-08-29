@@ -7,7 +7,8 @@
     "sign_in":"تسجيل الدخول",
 
     "home":"الصفحة الرئيسية",
-    "category":"الفئات",
+    "medicines_categories":"فئات الادوية",
+    "products_categories":"فئات المنتجات",
     "open_barcode_scanner":"افتح ماسح الباركود",
 
     "search":"بحث",
@@ -16,6 +17,7 @@
     "logout":"تسجيل خروج",
 
     "details":"التفاصيل",
+    "no_description":"لا وصف",
 
     "search1":"البحث عن منتج...",
     "no_result":"لا يوجد نتائج",

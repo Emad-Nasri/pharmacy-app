@@ -6,7 +6,7 @@ import 'package:pharmacy_app/pages/details_page.dart';
 class MyMedicine extends StatelessWidget {
   MyMedicine({
     super.key,
-    required this.image,
+    this.image,
     required this.medName,
     required this.price,
     required this.description,
@@ -21,7 +21,7 @@ class MyMedicine extends StatelessWidget {
     this.barcode, // صار nullable
   });
 
-  String image;
+  String? image;
   String medName;
   String description;
   String useage;
@@ -71,10 +71,12 @@ class MyMedicine extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Image.asset(
-                'assets/images/$image',
-                fit: BoxFit.contain,
-              ),
+              child: image.isNull
+                  ? const Icon(Icons.image)
+                  : Image.network(
+                      image!,
+                      fit: BoxFit.contain,
+                    ),
             ),
             const SizedBox(height: 8),
             Expanded(

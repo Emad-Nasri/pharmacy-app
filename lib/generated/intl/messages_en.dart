@@ -29,7 +29,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
     "bacode": MessageLookupByLibrary.simpleMessage("Bacode"),
     "barcode_scanner": MessageLookupByLibrary.simpleMessage("Barcode Scanner"),
-    "category": MessageLookupByLibrary.simpleMessage("Categories"),
     "change_lang": MessageLookupByLibrary.simpleMessage("Change language"),
     "change_mode": MessageLookupByLibrary.simpleMessage("Change mode"),
     "details": MessageLookupByLibrary.simpleMessage("Details"),
@@ -54,7 +53,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Manufacturing date",
     ),
     "medicine": MessageLookupByLibrary.simpleMessage("Medicine"),
+    "medicines_categories": MessageLookupByLibrary.simpleMessage(
+      "Medicines categories",
+    ),
     "night": MessageLookupByLibrary.simpleMessage("Night mode"),
+    "no_description": MessageLookupByLibrary.simpleMessage("no description"),
     "no_result": MessageLookupByLibrary.simpleMessage("No results found"),
     "not_yet_scanned": MessageLookupByLibrary.simpleMessage("Not yet scanned"),
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
@@ -69,6 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "product_name": MessageLookupByLibrary.simpleMessage("Product name"),
     "product_not_found": MessageLookupByLibrary.simpleMessage(
       "Product not found",
+    ),
+    "products_categories": MessageLookupByLibrary.simpleMessage(
+      "Product categories",
     ),
     "quantity": MessageLookupByLibrary.simpleMessage("Qty"),
     "result": MessageLookupByLibrary.simpleMessage("Result"),

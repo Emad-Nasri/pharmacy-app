@@ -14,6 +14,7 @@ void main() async {
   await GetStorage.init();
   await Firebase.initializeApp();
 
+  GetStorage().remove("token");
   Get.put(InvoiceController());
   runApp(MyApp());
 }
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: themeController.theme,
-      home: const HomePage(),
+      home: const SplashScreen(),
     );
   }
 }

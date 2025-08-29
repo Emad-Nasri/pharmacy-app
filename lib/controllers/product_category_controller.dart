@@ -2,21 +2,30 @@ import 'package:get/get.dart';
 import 'package:pharmacy_app/helpers/http_helper.dart';
 import 'package:pharmacy_app/models/medicine_model.dart';
 
-/// نستخدم نفس الموديل لأن الحقول نفسها، لكن نُظهر العناصر التي **ليست دواء**
+/// يعرض عناصر "منتجات" فقط (غير أدوية).
+/// في حال الـ API يرجع كل العناصر كدواء، منعمل fallback ونعرِض حسب التصنيف بدل ما نخليها فاضية.
 class ProductCategoryController extends GetxController {
   ProductCategoryController({required this.catName, this.endpoint = 'Product'});
   final String catName;
   final String endpoint;
 
-  final products = <MedicineModel>[].obs; // عناصر بدون medicineResponse
+  final products = <MedicineModel>[].obs;
   final isLoading = false.obs;
   final error = RxnString();
 
-  bool _isPlainProduct(dynamic m) {
-    if (m == null) return true; // null => منتج عادي
-    if (m is Map) return m.isEmpty; // كائن فاضي
-    if (m is List) return m.isEmpty; // مصفوفة فاضية
-    return true;
+  bool _isMedicine(dynamic mr) {
+    if (mr == null) return false;
+    if (mr is Map && mr.isEmpty) return false;
+    if (mr is! Map) return false;
+
+    final manufacturer =
+        (mr['manufacturer'] ?? '').toString().trim().isNotEmpty;
+    final activeIngredient =
+        (mr['activeIngredient'] ?? '').toString().trim().isNotEmpty;
+    final hasRx = mr['isRequiredDescription'] != null;
+
+    // لو أي حقل من هدول موجود اعتبره دواء
+    return manufacturer || activeIngredient || hasRx;
   }
 
   @override
@@ -34,12 +43,20 @@ class ProductCategoryController extends GetxController {
       final res = await HttpHelper.get(endpoint);
       final list = (res is List) ? res : (res is Map ? [res] : <dynamic>[]);
 
-      final parsed = list
-          .where((e) => _isPlainProduct(e['medicineResponse'])) // منتجات فقط
-          .map((e) => MedicineModel.fromJson(e))
-          .where((p) =>
-              (p.categoryName ?? '').toLowerCase() == catName.toLowerCase())
-          .toList();
+      // فلترة حسب التصنيف أولاً
+      final byCat = list.where((e) {
+        final cat = (e['categoryName'] ?? '').toString();
+        return cat.toLowerCase() == catName.toLowerCase();
+      }).toList();
+
+      // استبعاد الأدوية
+      final nonMedRaw =
+          byCat.where((e) => !_isMedicine(e['medicineResponse'])).toList();
+
+      // لو ما طلع شي بعد الاستبعاد (لأن الـ API يرجعها كلها كدواء) اعرض byCat كـ fallback
+      final chosen = nonMedRaw.isNotEmpty ? nonMedRaw : byCat;
+
+      final parsed = chosen.map((e) => MedicineModel.fromJson(e)).toList();
 
       products.assignAll(parsed);
     } catch (e) {

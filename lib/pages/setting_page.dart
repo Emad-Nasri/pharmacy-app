@@ -14,12 +14,13 @@ class SettingPage extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final appBarTextColor = isDarkMode ? Colors.yellow : Colors.white;
-    final settingColor =
-        isDarkMode ? Colors.yellow : const Color.fromARGB(255, 177, 170, 170);
-    final menuColor = isDarkMode ? Colors.yellow : Colors.white;
-    final textColor = isDarkMode ? Colors.yellow : Colors.black;
-    final iconColor = isDarkMode ? Colors.yellow : Colors.black;
+    final appBarTextColor = isDarkMode ? const Color(0xff107163) : Colors.white;
+    final settingColor = isDarkMode
+        ? const Color(0xff107163)
+        : const Color.fromARGB(255, 177, 170, 170);
+    final menuColor = isDarkMode ? const Color(0xff107163) : Colors.white;
+    final textColor = isDarkMode ? const Color(0xff107163) : Colors.black;
+    final iconColor = isDarkMode ? const Color(0xff107163) : Colors.black;
     final containerColor = isDarkMode ? Colors.grey.shade900 : Colors.white;
 
     return Scaffold(

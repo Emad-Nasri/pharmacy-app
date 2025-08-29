@@ -25,11 +25,12 @@ class MyListTile extends StatelessWidget {
           },
       leading: Icon(
         icon,
-        color: isDarkMode ? Colors.yellow : Colors.white,
+        color: isDarkMode ? const Color(0xff107163) : Colors.white,
       ),
       title: Text(
         title,
-        style: TextStyle(color: isDarkMode ? Colors.yellow : Colors.white),
+        style: TextStyle(
+            color: isDarkMode ? const Color(0xff107163) : Colors.white),
       ),
     );
   }

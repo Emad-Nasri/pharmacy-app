@@ -15,7 +15,7 @@ class ProductCategoryPage extends StatelessWidget {
 
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
+    final iconColor = isDarkMode ? const Color(0xff107163) : Colors.white;
 
     final c = Get.put(ProductCategoryController(catName: catName));
 
@@ -62,11 +62,11 @@ class ProductCategoryPage extends StatelessWidget {
                   medName: p.name,
                   price: (p.sellPrice ?? 0).toDouble(),
                   description: p.description ?? '',
-                  useage: '', // غير متوفر في الرد
+                  useage: '', // غير متوفر من الـ API
                   quantity: p.minimumStockLevel ?? 0,
-                  startD: 1, startM: 1, startY: 2024, // قيم افتراضية
-                  endD: 1, endM: 1, endY: 2026,
-                  barcode: '', // غير متوفر في الرد
+                  startD: 1, startM: 1, startY: 2024, // افتراضي
+                  endD: 1, endM: 1, endY: 2026, // افتراضي
+                  barcode: '',
                 );
               },
             ),

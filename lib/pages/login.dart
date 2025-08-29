@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:pharmacy_app/components/my_button.dart';
 import 'package:pharmacy_app/components/my_text_field.dart';
@@ -40,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
 
         if (response?['token'] != null) {
           Get.off(const HomePage());
+          await GetStorage().write("token", response?['token']);
         } else {
           Get.snackbar('Wrong', 'Login failed. Check data..',
               snackPosition: SnackPosition.BOTTOM);

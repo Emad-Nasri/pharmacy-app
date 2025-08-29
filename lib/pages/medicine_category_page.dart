@@ -15,7 +15,7 @@ class MedicineCategoryPage extends StatelessWidget {
 
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
+    final iconColor = isDarkMode ? const Color(0xff107163) : Colors.white;
 
     // اربط الكونترولر – يجلب فقط الأدوية الخاصة بهذه الفئة
     final MedicineController c = Get.put(MedicineController(catName: catName));
@@ -60,7 +60,7 @@ class MedicineCategoryPage extends StatelessWidget {
                     'حدث خطأ:\n${c.error.value}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: isDarkMode ? Colors.yellow : Colors.red,
+                      color: isDarkMode ? const Color(0xff107163) : Colors.red,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

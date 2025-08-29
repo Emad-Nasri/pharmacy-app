@@ -42,11 +42,11 @@ class MyExpiration extends StatelessWidget {
 
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
+    final iconColor = isDarkMode ? const Color(0xff107163) : Colors.white;
     final boxDecorationColor =
         isDarkMode ? Colors.grey.shade800 : Colors.grey.shade100;
-    final textColor = isDarkMode ? Colors.yellow : Colors.black;
-    final borderColor = isDarkMode ? Colors.yellow : Colors.black;
+    final textColor = isDarkMode ? const Color(0xff107163) : Colors.black;
+    final borderColor = isDarkMode ? const Color(0xff107163) : Colors.black;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,

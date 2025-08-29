@@ -23,7 +23,7 @@ class _ScannerPageState extends State<ScannerPage>
   final ThemeController themeController = Get.find();
   final InvoiceController invoiceController = Get.find();
 
-  // قائمة الأدوية (مؤقتة هنا - ممكن تجي من كنترولر لاحقاً)
+  // قائمة الأدوية (مثال محلي)
   final List<MyMedicine> allMedicines = [
     MyMedicine(
       image: 'panadol.png',
@@ -55,19 +55,19 @@ class _ScannerPageState extends State<ScannerPage>
       endY: 2025,
       barcode: '0987654321',
     ),
-    // أدوية أخرى...
   ];
 
   @override
   void initState() {
     super.initState();
-//الانيمشن
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       setState(() {
         barcodeResult = S.of(context).not_yet_scanned;
       });
     });
-//ليزر الانيمشن
+
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -84,22 +84,33 @@ class _ScannerPageState extends State<ScannerPage>
   void toggleTorch() {
     setState(() {
       isTorchOn = !isTorchOn;
-      cameraController.toggleTorch();
     });
+    cameraController.toggleTorch();
   }
 
-  void handleBarcodeScan(String code) async {
+  Future<void> handleBarcodeScan(String code) async {
+    if (!mounted) return;
+
     setState(() {
       barcodeResult = code;
     });
 
     // إيقاف مؤقت
-    cameraController.stop();
+    await cameraController.stop();
 
-    // التحقق من وجود الدواء
-    final found = allMedicines.firstWhereOrNull((med) => med.barcode == code);
+    // ابحث يدويًا لأن firstWhereOrNull غير متاحة افتراضيًا
+    MyMedicine? found;
+    for (final m in allMedicines) {
+      if ((m.barcode ?? '') == code) {
+        found = m;
+        break;
+      }
+    }
+
+    if (!mounted) return;
 
     if (found != null) {
+      // نستخدم دالة التوافق التي أضفناها في الكنترولر
       invoiceController.addMedicine(found);
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -118,7 +129,9 @@ class _ScannerPageState extends State<ScannerPage>
     }
 
     await Future.delayed(const Duration(seconds: 2));
-    cameraController.start();
+    if (mounted) {
+      await cameraController.start();
+    }
   }
 
   @override
@@ -126,8 +139,9 @@ class _ScannerPageState extends State<ScannerPage>
     final isDarkMode = themeController.theme == ThemeMode.dark;
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final laserLineColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
-    final titleAndIconColor = isDarkMode ? Colors.yellow : Colors.white;
+    final laserLineColor = const Color(0xff107163);
+    final titleAndIconColor =
+        isDarkMode ? const Color(0xff107163) : Colors.white;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -153,10 +167,9 @@ class _ScannerPageState extends State<ScannerPage>
           MobileScanner(
             controller: cameraController,
             onDetect: (BarcodeCapture capture) {
-              final List<Barcode> barcodes = capture.barcodes;
+              final barcodes = capture.barcodes;
               if (barcodes.isNotEmpty) {
-                final String code =
-                    barcodes.first.rawValue ?? S.of(context).unknown;
+                final code = barcodes.first.rawValue ?? S.of(context).unknown;
                 handleBarcodeScan(code);
               }
             },

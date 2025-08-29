@@ -1,10 +1,12 @@
+// lib/pages/invoice_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
 import 'package:pharmacy_app/components/my_drawer.dart';
-import 'package:pharmacy_app/components/my_invoice.dart';
+import 'package:pharmacy_app/components/my_invoice.dart'; // InvoiceController
 import 'package:pharmacy_app/generated/l10n.dart';
-import 'package:pharmacy_app/helpers/utils.dart';
+import 'package:pharmacy_app/helpers/utils.dart'; // printPdf
 import 'package:pharmacy_app/theme/theme_controller.dart';
 
 class InvoicePage extends StatelessWidget {
@@ -12,35 +14,49 @@ class InvoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = Get.find();
-    final InvoiceController invoiceController = Get.find();
+    final themeController = Get.find<ThemeController>();
+    final invoiceController = Get.find<InvoiceController>();
 
-    final isDarkMode = themeController.theme == ThemeMode.dark;
-    final appBarColor =
-        isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
-    final boxDecorationColor =
-        isDarkMode ? Colors.grey.shade800 : const Color(0xff107163);
-    final textColor = isDarkMode ? Colors.yellow : Colors.black;
-    final borderColor = isDarkMode ? Colors.yellow : Colors.black;
+    final isDark = themeController.theme == ThemeMode.dark;
+    final appBarColor = isDark ? Colors.grey.shade900 : const Color(0xff107163);
+    final iconColor = Colors.white;
+    final textColor = isDark ? Colors.yellow : Colors.black;
 
     final formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
     return Scaffold(
       drawer: const Drawer(width: 200, child: MyDrawer()),
       appBar: AppBar(
-        title: Text(
-          S.of(context).invoice,
-          style: TextStyle(color: iconColor),
-        ),
+        title: Text(S.of(context).invoice, style: TextStyle(color: iconColor)),
         backgroundColor: appBarColor,
         iconTheme: IconThemeData(color: iconColor),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.cloud_upload),
+            onPressed: () async {
+              await invoiceController.submitSale();
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf),
+            onPressed: () {
+              final filtered = invoiceController.items
+                  .where((it) => it.name.trim().isNotEmpty)
+                  .toList();
+              if (filtered.isEmpty) {
+                Get.snackbar('خطأ', 'لا يوجد عناصر صالحة للطباعة');
+                return;
+              }
+              printPdf(filtered);
+            },
+          ),
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // شعار
+            // الشعار
             Container(
               height: 100,
               width: 100,
@@ -53,95 +69,165 @@ class InvoicePage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
 
-            // تاريخ الفاتورة
-            Text("${S.of(context).invoiceDate}: $formattedDate",
-                style: const TextStyle(fontSize: 16)),
+            // التاريخ
+            Text(
+              "${S.of(context).invoiceDate}: $formattedDate",
+              style: const TextStyle(fontSize: 16),
+            ),
             const SizedBox(height: 20),
 
-            // رؤوس الجدول
+            // رؤوس الأعمدة (نفس نسب الـ flex تحت)
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(S.of(context).medicine,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text(S.of(context).price,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text(S.of(context).quantity,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text(S.of(context).total,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+              children: const [
+                Expanded(
+                  flex: 6,
+                  child: Text(
+                    'دواء',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'السعر',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(width: 8), // مسافة صغيرة بين السعر والكمية
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'الكمية',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'المجموع',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(width: 36), // مكان زر الحذف
               ],
             ),
             const Divider(color: Colors.black),
 
-            // قائمة المنتجات
+            // العناصر
             Expanded(
-              child: Obx(() => ListView.builder(
-                    itemCount: invoiceController.items.length,
-                    itemBuilder: (context, index) {
-                      final item = invoiceController.items[index];
-                      return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        margin: const EdgeInsets.symmetric(vertical: 4),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            // الاسم
-                            Expanded(
-                              flex: 3,
-                              child: TextFormField(
-                                initialValue: item.name,
-                                onChanged: (value) => item.name = value.trim(),
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                ),
+              child: Obx(
+                () => ListView.builder(
+                  itemCount: invoiceController.items.length,
+                  itemBuilder: (context, index) {
+                    final item = invoiceController.items[index];
+
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // الاسم — أكبر حصة — قص بنقاط
+                          Expanded(
+                            flex: 6,
+                            child: Text(
+                              item.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ),
+
+                          // السعر
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              item.price.toStringAsFixed(2),
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                            // السعر
-                            Expanded(
-                              child: TextFormField(
-                                enabled: false,
-                                initialValue: item.price.toString(),
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                ),
+                          ),
+
+                          const SizedBox(width: 8),
+
+                          // الكمية +/-
+                          Expanded(
+                            flex: 3,
+                            child: FittedBox(
+                              // حتى على الشاشات الضيقة ما يصير overflow
+                              fit: BoxFit.scaleDown,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _qtyBtn(
+                                    icon: Icons.remove,
+                                    onTap: () =>
+                                        invoiceController.decrement(index),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(
+                                      item.quantity.toString(),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  _qtyBtn(
+                                    icon: Icons.add,
+                                    onTap: () =>
+                                        invoiceController.increment(index),
+                                  ),
+                                ],
                               ),
                             ),
-                            // الكمية
-                            Expanded(
-                              child: TextFormField(
-                                initialValue: item.quantity.toString(),
-                                keyboardType: TextInputType.number,
-                                onChanged: (value) {
-                                  item.quantity =
-                                      int.tryParse(value) ?? item.quantity;
-                                  invoiceController.items.refresh();
-                                },
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                ),
+                          ),
+
+                          // المجموع
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              item.total.toStringAsFixed(2),
+                              textAlign: TextAlign.end,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            // الإجمالي
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  item.total.toStringAsFixed(2),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
+                          ),
+
+                          // زر الحذف قرب المجموع
+                          SizedBox(
+                            width: 36,
+                            child: IconButton(
+                              tooltip: 'حذف',
+                              onPressed: () =>
+                                  invoiceController.removeAt(index),
+                              icon: const Icon(Icons.delete),
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(
+                                minWidth: 36,
+                                minHeight: 36,
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  )),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
 
             const SizedBox(height: 10),
@@ -158,54 +244,37 @@ class InvoicePage extends StatelessWidget {
                     color: textColor,
                   ),
                 ),
-                Obx(() => Text(
-                      "${invoiceController.total.toStringAsFixed(2)} \$",
-                      style: TextStyle(fontSize: 18, color: textColor),
-                    )),
+                Obx(
+                  () => Text(
+                    "${invoiceController.total.toStringAsFixed(2)} \$",
+                    style: TextStyle(fontSize: 18, color: textColor),
+                  ),
+                ),
               ],
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
 
-            // زر الطباعة
-            GestureDetector(
-              onTap: () {
-                final filteredItems = invoiceController.items
-                    .where((item) => item.name.trim().isNotEmpty)
-                    .toList();
-
-                if (filteredItems.isEmpty) {
-                  Get.snackbar("خطأ", "لا يوجد عناصر صالحة للطباعة");
-                  return;
-                }
-
-                printPdf(filteredItems);
-              },
-              child: Container(
-                height: 50,
-                width: 160,
-                decoration: BoxDecoration(
-                  color: boxDecorationColor,
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: borderColor),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.picture_as_pdf, color: Colors.white),
-                    const SizedBox(width: 10),
-                    Text(
-                      S.of(context).printInvoice,
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
+            // تفريغ
+            OutlinedButton.icon(
+              onPressed: invoiceController.clearInvoice,
+              icon: const Icon(Icons.clear_all),
+              label: const Text('تفريغ الفاتورة'),
             ),
-            const SizedBox(height: 40),
           ],
         ),
       ),
+    );
+  }
+
+  // زر كمية صغير ومدمج
+  Widget _qtyBtn({required IconData icon, required VoidCallback onTap}) {
+    return IconButton(
+      onPressed: onTap,
+      icon: Icon(icon, size: 18),
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints.tightFor(width: 32, height: 32),
+      visualDensity: VisualDensity.compact,
     );
   }
 }

@@ -45,10 +45,12 @@ class _SearchPageState extends State<SearchPage> {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final textColor = isDarkMode ? Colors.yellow : Colors.white;
-    final iconColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
-    final searchColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
-    final menuColor = isDarkMode ? Colors.yellow : Colors.white;
+    final textColor = isDarkMode ? const Color(0xff107163) : Colors.white;
+    final iconColor =
+        isDarkMode ? const Color(0xff107163) : const Color(0xff107163);
+    final searchColor =
+        isDarkMode ? const Color(0xff107163) : const Color(0xff107163);
+    final menuColor = isDarkMode ? const Color(0xff107163) : Colors.white;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -79,15 +81,15 @@ class _SearchPageState extends State<SearchPage> {
                 hintText: S.of(context).search1, //search for a product...
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: isDarkMode ? Colors.yellow : const Color(0xff107163),
+                  borderSide: const BorderSide(
+                    color: Color(0xff107163),
                     width: 2,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: isDarkMode ? Colors.yellow : const Color(0xff107163),
+                  borderSide: const BorderSide(
+                    color: Color(0xff107163),
                     width: 2,
                   ),
                 ),

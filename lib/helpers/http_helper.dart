@@ -4,69 +4,68 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
 
-// typedef Json = Map<String, dynamic>;
-
 class HttpHelper {
-  static const String _baseUrl = 'http://192.168.137.220:5200/api';
+  // عدّل الـ IP حسب شبكتك
+  static const String _baseUrl = 'http://192.168.1.6:5200/api';
 
   static Map<String, String> getHeaders() {
     final token = GetStorage().read('token') ?? '';
     return {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
+      // ملاحظة: GET عادةً ما يحتاج Content-Type فقط إذا في body، بس خليه آمن
+      'Content-Type': 'application/json',
     };
   }
 
-  static Future<dynamic> get(String endpoint) async {
-    final response = await http.get(
-      Uri.parse('$_baseUrl/$endpoint'),
-      headers: {
-        ...getHeaders(),
-        'Content-Type': 'application/json',
-      },
+  /// GET مع دعم Query Parameters
+  static Future<dynamic> get(String endpoint,
+      {Map<String, dynamic>? query}) async {
+    final uri = Uri.parse('$_baseUrl/$endpoint').replace(
+      queryParameters: query?.map((k, v) => MapEntry(k, '$v')),
     );
-    print('status code: ${response.statusCode}');
+
+    final response = await http.get(uri, headers: getHeaders());
+    // Debug
+    print('GET $uri -> ${response.statusCode}');
     print('Body: ${response.body}');
     return _handleResponse(response);
   }
 
-  static Future<dynamic> post(String endpoint, dynamic data) async {
+  static Future<dynamic> post(String endpoint, dynamic data,
+      {Map<String, dynamic>? query}) async {
+    final uri = Uri.parse('$_baseUrl/$endpoint').replace(
+      queryParameters: query?.map((k, v) => MapEntry(k, '$v')),
+    );
     try {
       final response = await http.post(
-        Uri.parse('$_baseUrl/$endpoint'),
-        headers: {
-          ...getHeaders(),
-          'Content-Type': 'application/json',
-        },
+        uri,
+        headers: getHeaders(),
         body: json.encode(data),
       );
       return _handleResponse(response);
     } catch (e, s) {
       log('POST error: $e\n$s');
-      return null;
+      rethrow; // مهم: لا ترجع null، خلّي الخطأ يطلع للي فوق
     }
   }
 
-  static Future<dynamic> put(String endpoint, dynamic data) async {
-    final response = await http.put(
-      Uri.parse('$_baseUrl/$endpoint'),
-      headers: {
-        ...getHeaders(),
-        'Content-Type': 'application/json',
-      },
-      body: json.encode(data),
+  static Future<dynamic> put(String endpoint, dynamic data,
+      {Map<String, dynamic>? query}) async {
+    final uri = Uri.parse('$_baseUrl/$endpoint').replace(
+      queryParameters: query?.map((k, v) => MapEntry(k, '$v')),
     );
+    final response =
+        await http.put(uri, headers: getHeaders(), body: json.encode(data));
     return _handleResponse(response);
   }
 
-  static Future<dynamic> delete(String endpoint) async {
-    final response = await http.delete(
-      Uri.parse('$_baseUrl/$endpoint'),
-      headers: {
-        ...getHeaders(),
-        'Content-Type': 'application/json',
-      },
+  static Future<dynamic> delete(String endpoint,
+      {Map<String, dynamic>? query}) async {
+    final uri = Uri.parse('$_baseUrl/$endpoint').replace(
+      queryParameters: query?.map((k, v) => MapEntry(k, '$v')),
     );
+    final response = await http.delete(uri, headers: getHeaders());
     return _handleResponse(response);
   }
 
@@ -75,11 +74,13 @@ class HttpHelper {
     Map<String, String> fields,
     File? file, {
     String fileFieldName = 'icon',
+    Map<String, dynamic>? query,
   }) async {
-    final uri = Uri.parse('$_baseUrl/$endpoint');
+    final uri = Uri.parse('$_baseUrl/$endpoint').replace(
+      queryParameters: query?.map((k, v) => MapEntry(k, '$v')),
+    );
     final request = http.MultipartRequest('POST', uri)
       ..headers.addAll(getHeaders());
-
     request.fields.addAll(fields);
 
     if (file != null) {
@@ -95,26 +96,40 @@ class HttpHelper {
 
     final streamedResponse = await request.send();
     final response = await http.Response.fromStream(streamedResponse);
-
     return _handleResponse(response);
   }
 
+  /// لا تلفّ رسالة السيرفر داخل Exception نصي وتضيعها.
+  /// إذا الرد فشل و JSON فيه { message: ... } ارمي الـ Map نفسه.
+  /// إذا مو JSON، ارمي الـ body كنص.
   static dynamic _handleResponse(http.Response response) {
+    final status = response.statusCode;
+    final bodyText = response.body;
+
+    if (bodyText.isEmpty) {
+      // ممكن تكون عمليات بدون body
+      if (status >= 200 && status < 300) return null;
+      throw 'HTTP $status';
+    }
+
+    dynamic data;
     try {
-      if (response.body.isEmpty) {
-        // إذا ما في أي بيانات، رجع success فاضي
-        return null;
-      }
+      data = json.decode(bodyText);
+    } catch (_) {
+      // مو JSON صالح
+      if (status >= 200 && status < 300) return bodyText;
+      throw bodyText; // اسمح للطبقات فوق تقراه كنص
+    }
 
-      final data = json.decode(response.body);
-
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        return data;
-      } else {
-        throw Exception(data['message'] ?? 'Unexpected error occurred');
+    if (status >= 200 && status < 300) {
+      return data;
+    } else {
+      // إذا السيرفر رجّع { message: '...' } خلّيها تطلع كما هي Map
+      if (data is Map<String, dynamic>) {
+        throw data; // بيفيد _extractServerMessage
       }
-    } catch (e) {
-      throw Exception('Invalid response format or error: $e');
+      // غير ذلك: ارمي النص المحض
+      throw bodyText;
     }
   }
 }

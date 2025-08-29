@@ -17,16 +17,17 @@ class MySettingListTile extends StatelessWidget {
     return ListTile(
         leading: Icon(
           icon,
-          color: isDarkMode ? Colors.yellow : Colors.black,
+          color: isDarkMode ? const Color(0xff107163) : Colors.black,
         ),
         title: Text(
           title,
-          style: TextStyle(color: isDarkMode ? Colors.yellow : Colors.black),
+          style: TextStyle(
+              color: isDarkMode ? const Color(0xff107163) : Colors.black),
         ),
         trailing: Icon(
           // الأيقونة على اليمين وتشير لليمين
           isArabic() ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right,
-          color: isDarkMode ? Colors.yellow : Colors.black,
+          color: isDarkMode ? const Color(0xff107163) : Colors.black,
         ),
         onTap: onTap);
   }

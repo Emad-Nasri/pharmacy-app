@@ -36,19 +36,20 @@ class DetailsPage extends StatelessWidget {
   final int endD;
   final int endM;
   final int endY;
+
   @override
   Widget build(BuildContext context) {
-    Date date = Date(date: '', day: 0, month: 0, year: 0);
+    final date = Date(date: '', day: 0, month: 0, year: 0);
     final ThemeController themeController = Get.find();
     final isDarkMode = themeController.theme == ThemeMode.dark;
 
-    final textColor = isDarkMode ? Colors.yellow : Colors.black;
-    final appBarTextColor = isDarkMode ? Colors.yellow : Colors.white;
+    final textColor = isDarkMode ? const Color(0xff107163) : Colors.black;
+    final appBarTextColor = isDarkMode ? const Color(0xff107163) : Colors.white;
     final backgroundColor = Theme.of(context).colorScheme.surface;
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final tabBarColor = isDarkMode ? Colors.yellow : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
+    final tabBarColor = isDarkMode ? const Color(0xff107163) : Colors.black;
+    final iconColor = isDarkMode ? const Color(0xff107163) : Colors.white;
 
     return DefaultTabController(
       length: 2,
@@ -63,13 +64,8 @@ class DetailsPage extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              icon: Icon(
-                Icons.date_range,
-                color: iconColor,
-              ),
-              onPressed: () {
-                Get.off(const InvoicePage());
-              },
+              icon: Icon(Icons.date_range, color: iconColor),
+              onPressed: () => Get.off(const InvoicePage()),
             ),
           ],
         ),
@@ -108,6 +104,7 @@ class DetailsPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 14),
                   GestureDetector(
                     onTap: () {
                       final invoiceController = Get.find<InvoiceController>();
@@ -125,11 +122,15 @@ class DetailsPage extends StatelessWidget {
                           endD: endD,
                           endM: endM,
                           endY: endY,
-                          barcode: '',
+                          barcode: barcode,
                         ),
+                        // لو توفر لديك productId مرّره هنا
+                        productId: 0,
                       );
-                      Get.snackbar(S.of(context).success,
-                          "$productName ${S.of(context).added_to_invoice}");
+                      Get.snackbar(
+                        S.of(context).success,
+                        "$productName ${S.of(context).added_to_invoice}",
+                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -137,12 +138,16 @@ class DetailsPage extends StatelessWidget {
                         Container(
                           width: 150,
                           decoration: BoxDecoration(
-                              border: Border.all(color: textColor),
-                              borderRadius: BorderRadius.circular(8)),
+                            border: Border.all(color: textColor),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 6),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.add, color: textColor),
+                              const SizedBox(width: 6),
                               Text(S.of(context).add_to_invoice,
                                   style: TextStyle(color: textColor)),
                             ],
@@ -177,15 +182,17 @@ class DetailsPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: ListView(children: [
-                      Text(
-                        description,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: isDarkMode ? Colors.white : Colors.black,
+                    child: ListView(
+                      children: [
+                        Text(
+                          description,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: isDarkMode ? Colors.white : Colors.black,
+                          ),
                         ),
-                      ),
-                    ]),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -226,7 +233,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'ُ${S.of(context).quantity} : $quantity',
+                          'ُ${S.of(context).quantity} : ${quantity ?? 0}',
                           style: TextStyle(
                             fontSize: 16,
                             color: isDarkMode ? Colors.white : Colors.black87,

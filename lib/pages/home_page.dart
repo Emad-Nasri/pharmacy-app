@@ -20,8 +20,8 @@ class HomePage extends StatelessWidget {
     final isDarkMode = themeController.theme == ThemeMode.dark;
     final appBarColor =
         isDarkMode ? Colors.grey.shade900 : const Color(0xff107163);
-    final iconColor = isDarkMode ? Colors.yellow : Colors.white;
-    final borderColor = isDarkMode ? Colors.yellow : Colors.black;
+    final iconColor = isDarkMode ? const Color(0xff107163) : Colors.white;
+    final borderColor = isDarkMode ? const Color(0xff107163) : Colors.black;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
               categoryController.error.value!,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: isDarkMode ? Colors.yellow : Colors.red,
+                color: isDarkMode ? const Color(0xff107163) : Colors.red,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: isDarkMode ? Colors.yellow : Colors.black,
+                    color: isDarkMode ? const Color(0xff107163) : Colors.black,
                   ),
                 ),
               ),
@@ -124,7 +124,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: isDarkMode ? Colors.yellow : Colors.black,
+                    color: isDarkMode ? const Color(0xff107163) : Colors.black,
                   ),
                 ),
               ),
@@ -154,7 +154,8 @@ class HomePage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
                       isDarkMode ? Colors.grey.shade800 : Colors.white,
-                  foregroundColor: isDarkMode ? Colors.yellow : Colors.black,
+                  foregroundColor:
+                      isDarkMode ? const Color(0xff107163) : Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

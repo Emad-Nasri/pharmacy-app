@@ -60,7 +60,7 @@ class MyMedicine extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isDarkMode ? Colors.yellow : Colors.black,
+            color: isDarkMode ? const Color(0xff107163) : Colors.black,
             width: 1,
           ),
           color: isDarkMode ? Colors.grey.shade800 : Colors.white,
@@ -72,7 +72,10 @@ class MyMedicine extends StatelessWidget {
             Expanded(
               flex: 3,
               child: image.isNull
-                  ? const Icon(Icons.image)
+                  ? const Icon(
+                      Icons.image,
+                      size: 100,
+                    )
                   : Image.network(
                       image!,
                       fit: BoxFit.contain,
@@ -80,7 +83,7 @@ class MyMedicine extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Column(
                 children: [
                   Text(
@@ -88,7 +91,8 @@ class MyMedicine extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
-                      color: isDarkMode ? Colors.yellow : Colors.black,
+                      color:
+                          isDarkMode ? const Color(0xff107163) : Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -97,7 +101,8 @@ class MyMedicine extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
-                      color: isDarkMode ? Colors.yellow : Colors.black,
+                      color:
+                          isDarkMode ? const Color(0xff107163) : Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
